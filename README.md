@@ -208,7 +208,7 @@ Project documentation is available inside the **docs/** directory.
 # 🚀 Development Roadmap
 
 - ✅ Sprint 0 – Planning & Setup
-- ⏳ Sprint 1 – Frontend Foundation
+- ✅ Sprint 1 – Frontend Foundation
 - ⏳ Sprint 2 – Authentication UI
 - ⏳ Sprint 3 – Backend Development
 - ⏳ Sprint 4 – Database Integration
