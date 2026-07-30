@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StudyHub is a modern, cloud-ready LMS landing page for students, teachers, and administrators.">
+    <title>StudyHub | Modern LMS for Smarter Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" type="button" aria-label="Back to top">
+        <span aria-hidden="true">↑</span>
+    </button>
+
+    <!-- Navigation -->
+    <header class="navbar" id="site-navbar">
+        <div class="navbar__inner">
+            <a class="brand" href="index.html" aria-label="StudyHub home">
+                <span class="brand__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path d="M4.6 13.8h10.7a2 2 0 0 1 2 2v1.5H6.6a2 2 0 0 1-2-2z" fill="#d97706" stroke="#8b5a22" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M5.2 10.6h11a2 2 0 0 1 2 2v1.6H7.2a2 2 0 0 1-2-2z" fill="#ef4444" stroke="#8b1e1e" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M5.8 7.4h11.2a2 2 0 0 1 2 2V11H7.8a2 2 0 0 1-2-2z" fill="#22c55e" stroke="#1f6b3b" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M7 6.6h9.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                        <path d="M7 9.1h7.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                        <path d="M14.6 4.7l1.5-1.5 3.2 3.2-1.5 1.5-3.9 1.1z" fill="#f59e0b" stroke="#92400e" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M13.6 5.7l3.2 3.2" fill="none" stroke="#78350f" stroke-width="1.2" stroke-linecap="round"></path>
+                    </svg>
+                </span>
+                <span class="brand__text">
+                    <strong>StudyHub</strong>
+                    <small>Cloud-ready LMS</small>
+                </span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false" title="Toggle color theme">
+                <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
+                <span class="theme-toggle__label">Light</span>
+            </button>
+
+            <nav class="nav" id="primary-navigation" aria-label="Primary navigation">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#courses">Courses</a>
+                <a href="index.html#features">Features</a>
+                <a href="student-dashboard.html">Dashboard</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a class="nav__link nav__link--ghost" href="login.html">Login</a>
+                <a class="nav__link nav__link--ghost" href="signup.html">Sign Up</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero section" id="home">
+            <div class="container hero__grid">
+                <div class="hero__content reveal">
+                    <p class="eyebrow">Premium LMS for modern learning</p>
+                    <h1>Learn Smarter. <br>Build Your Future.</h1>
+                    <p class="hero__description">
+                        StudyHub is a cloud-ready learning management system built as a portfolio project for Full Stack Development, Cloud Computing, DevOps, and Software Engineering. It gives students, teachers, and administrators one polished platform for courses, assignments, progress tracking, and collaboration.
+                    </p>
+
+                    <div class="hero__actions">
+                        <a class="button button--primary" href="signup.html">Get Started</a>
+                        <a class="button button--secondary" href="index.html#courses">Explore Courses</a>
+                    </div>
+
+                    <div class="hero__trust">
+                        <div>
+                            <strong>10K+</strong>
+                            <span>Active learners</span>
+                        </div>
+                        <div>
+                            <strong>250+</strong>
+                            <span>Learning paths</span>
+                        </div>
+                        <div>
+                            <strong>98%</strong>
+                            <span>Success rate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero__visual reveal" aria-label="StudyHub illustration">
+                    <div class="hero__orb hero__orb--one"></div>
+                    <div class="hero__orb hero__orb--two"></div>
+
+                    <div class="hero__panel hero__panel--main">
+                        <div class="hero__panel-top">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="hero__dashboard">
+                            <div class="dashboard__header">
+                                <div>
+                                    <p>Weekly learning progress</p>
+                                    <strong>88% completed</strong>
+                                </div>
+                                <span class="dashboard__chip">Live</span>
+                            </div>
+
+                            <div class="dashboard__chart" aria-hidden="true">
+                                <span style="height: 42%"></span>
+                                <span style="height: 68%"></span>
+                                <span style="height: 54%"></span>
+                                <span style="height: 82%"></span>
+                                <span style="height: 64%"></span>
+                                <span style="height: 90%"></span>
+                            </div>
+
+                            <div class="dashboard__grid">
+                                <article>
+                                    <strong>24</strong>
+                                    <span>Lessons today</span>
+                                </article>
+                                <article>
+                                    <strong>18</strong>
+                                    <span>Assignments</span>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floating-card floating-card--one">
+                        <span class="floating-card__icon">★</span>
+                        <div>
+                            <strong>4.9/5</strong>
+                            <p>Student rating</p>
+                        </div>
+                    </div>
+
+                    <div class="floating-card floating-card--two">
+                        <span class="floating-card__icon">⏱</span>
+                        <div>
+                            <strong>Self-paced</strong>
+                            <p>Flexible learning</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section section--alt" id="features">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="section-heading__eyebrow">Platform features</p>
+                    <h2>Everything a modern LMS needs</h2>
+                    <p>StudyHub combines clean design with practical learning tools so the product feels professional, organized, and easy to understand.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <article class="feature-card reveal">
+                        <span class="feature-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M4 7.5 12 4l8 3.5-8 3.5z"></path><path d="M4 7.5v9L12 20l8-3.5v-9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+                        </span>
+                        <h3>Online Learning</h3>
+                        <p>Deliver a complete learning experience with organized lessons, resources, and structured content.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M4.5 13.5 9 18l10-10"></path><path d="M5 5h14v14H5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+                        </span>
+                        <h3>Progress Tracking</h3>
+                        <p>Help learners see how far they have come with clear milestones and progress indicators.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M7 4h10v16H7z" fill="none" stroke="currentColor" stroke-width="1.6"></path><path d="M9.5 8h5M9.5 12h5M9.5 16h3"></path></svg>
+                        </span>
+                        <h3>Assignments</h3>
+                        <p>Keep submissions, deadlines, and grading in one place for students and teachers.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M8 8l6 4-6 4z"></path><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+                        </span>
+                        <h3>Video Lectures</h3>
+                        <p>Present lessons with a content-friendly layout ready for future streaming features.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M7 10a4 4 0 0 1 8 0v2h1.5a2.5 2.5 0 0 1 0 5H6.5a2.5 2.5 0 0 1 0-5H7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+                        </span>
+                        <h3>Cloud Storage</h3>
+                        <p>Prepare the interface for cloud-based document storage, downloads, and resource management.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"></path></svg>
+                        </span>
+                        <h3>Certificates</h3>
+                        <p>Reward completion with a polished, trustworthy interface that feels ready for real-world deployment.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="section stats" aria-label="StudyHub statistics">
+            <div class="container stats__grid reveal">
+                <article class="stat-card">
+                    <strong class="stat-card__value" data-count="10000">0</strong>
+                    <span>Students</span>
+                </article>
+                <article class="stat-card">
+                    <strong class="stat-card__value" data-count="250">0</strong>
+                    <span>Courses</span>
+                </article>
+                <article class="stat-card">
+                    <strong class="stat-card__value" data-count="50">0</strong>
+                    <span>Instructors</span>
+                </article>
+                <article class="stat-card">
+                    <strong class="stat-card__value" data-count="98" data-suffix="%">0</strong>
+                    <span>Success Rate</span>
+                </article>
+            </div>
+        </section>
+
+        <!-- Popular Courses -->
+        <section class="section" id="courses">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="section-heading__eyebrow">Popular courses</p>
+                    <h2>Learn with real-world technical courses</h2>
+                    <p>These courses are closer to an actual IT and cloud learning path, with topics students would expect in a modern LMS.</p>
+                </div>
+
+                <div class="course-grid">
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--devops" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>Linux Administration</span>
+                                <span>4.9</span>
+                            </div>
+                            <h3>Linux Administration Bootcamp</h3>
+                            <p class="course-card__instructor">By Sarah Johnson</p>
+                            <div class="course-card__details">
+                                <span>10 Weeks</span>
+                                <span>Beginner</span>
+                                <span>$69</span>
+                            </div>
+                            <button class="button button--course" type="button">Enroll Now</button>
+                        </div>
+                    </article>
+
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--web" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>Version Control</span>
+                                <span>4.8</span>
+                            </div>
+                            <h3>Git &amp; GitHub Essentials</h3>
+                            <p class="course-card__instructor">By Alex Morgan</p>
+                            <div class="course-card__details">
+                                <span>6 Weeks</span>
+                                <span>Intermediate</span>
+                                <span>$49</span>
+                            </div>
+                            <button class="button button--course" type="button">Enroll Now</button>
+                        </div>
+                    </article>
+
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--security" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>Networking</span>
+                                <span>4.7</span>
+                            </div>
+                            <h3>Networking Fundamentals</h3>
+                            <p class="course-card__instructor">By Priya Patel</p>
+                            <div class="course-card__details">
+                                <span>8 Weeks</span>
+                                <span>Beginner</span>
+                                <span>$59</span>
+                            </div>
+                            <button class="button button--course" type="button">Enroll Now</button>
+                        </div>
+                    </article>
+
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--cloud" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>AWS Cloud</span>
+                                <span>5.0</span>
+                            </div>
+                            <h3>AWS Cloud Practitioner</h3>
+                            <p class="course-card__instructor">By Michael Chen</p>
+                            <div class="course-card__details">
+                                <span>9 Weeks</span>
+                                <span>Beginner</span>
+                                <span>$79</span>
+                            </div>
+                            <button class="button button--course" type="button">Enroll Now</button>
+                        </div>
+                    </article>
+
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--devops" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>Containers</span>
+                                <span>4.9</span>
+                            </div>
+                            <h3>Docker Fundamentals</h3>
+                            <p class="course-card__instructor">By Emily Davis</p>
+                            <div class="course-card__details">
+                                <span>7 Weeks</span>
+                                <span>Intermediate</span>
+                                <span>$65</span>
+                            </div>
+                            <button class="button button--course" type="button">Enroll Now</button>
+                        </div>
+                    </article>
+
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--data" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>Orchestration</span>
+                                <span>4.8</span>
+                            </div>
+                            <h3>Kubernetes Basics</h3>
+                            <p class="course-card__instructor">By Daniel Lee</p>
+                            <div class="course-card__details">
+                                <span>8 Weeks</span>
+                                <span>Intermediate</span>
+                                <span>$72</span>
+                            </div>
+                            <button class="button button--course" type="button">Enroll Now</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose StudyHub -->
+        <section class="section section--alt" id="about">
+            <div class="container about-grid">
+                <div class="about-grid__visual reveal" aria-hidden="true">
+                    <div class="about-grid__frame">
+                        <div class="about-grid__screen">
+                            <div class="about-grid__mini-card about-grid__mini-card--top">Course roadmap</div>
+                            <div class="about-grid__mini-card about-grid__mini-card--mid">Progress analytics</div>
+                            <div class="about-grid__mini-card about-grid__mini-card--bottom">Cloud deployment</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-grid__content reveal">
+                    <div class="section-heading section-heading--left">
+                        <p class="section-heading__eyebrow">Why choose StudyHub</p>
+                        <h2>Built to feel like a real product, not a classroom demo</h2>
+                        <p>The structure blends software product design with learning goals, giving the page a startup-quality look that still stays easy to understand for beginners.</p>
+                    </div>
+
+                    <ul class="checklist">
+                        <li>Learn Anywhere</li>
+                        <li>Cloud Based</li>
+                        <li>Industry Projects</li>
+                        <li>Modern Dashboard</li>
+                        <li>Responsive</li>
+                        <li>Lifetime Access</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section testimonials">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="section-heading__eyebrow">Testimonials</p>
+                    <h2>Students love the clean experience</h2>
+                    <p>The testimonial cards echo the polish of a modern SaaS website while keeping the copy simple and relatable.</p>
+                </div>
+
+                <div class="testimonial-grid">
+                    <article class="testimonial-card reveal">
+                        <div class="testimonial-card__top">
+                            <div class="avatar avatar--one" aria-hidden="true">AR</div>
+                            <div>
+                                <strong>Aarav Shah</strong>
+                                <span>Full Stack Development</span>
+                            </div>
+                        </div>
+                        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                        <p>StudyHub makes it easy to stay organized. The layout feels professional and the learning flow is very clear.</p>
+                    </article>
+
+                    <article class="testimonial-card reveal">
+                        <div class="testimonial-card__top">
+                            <div class="avatar avatar--two" aria-hidden="true">NS</div>
+                            <div>
+                                <strong>Nisha Singh</strong>
+                                <span>AWS Cloud Basics</span>
+                            </div>
+                        </div>
+                        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                        <p>I like how premium the interface feels. It looks like something you would actually ship as a startup product.</p>
+                    </article>
+
+                    <article class="testimonial-card reveal">
+                        <div class="testimonial-card__top">
+                            <div class="avatar avatar--three" aria-hidden="true">MK</div>
+                            <div>
+                                <strong>Mohit Kumar</strong>
+                                <span>UI/UX Foundations</span>
+                            </div>
+                        </div>
+                        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                        <p>The clean cards, spacing, and colors make it easy to understand the platform. It is great for a portfolio project.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call To Action -->
+        <section class="section cta" id="cta">
+            <div class="container cta__panel reveal">
+                <div>
+                    <p class="section-heading__eyebrow">Get started today</p>
+                    <h2>Ready to Start Learning?</h2>
+                    <p>Join StudyHub and explore a polished LMS experience designed for modern education, portfolio presentation, and future cloud deployment.</p>
+                </div>
+                <div class="cta__actions">
+                        <a class="button button--primary" href="signup.html">Register Now</a>
+                        <a class="button button--secondary" href="index.html#courses">Browse Courses</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container footer__grid">
+            <div class="footer__brand">
+                <a class="brand brand--footer" href="index.html">
+                    <span class="brand__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                            <path d="M4.6 13.8h10.7a2 2 0 0 1 2 2v1.5H6.6a2 2 0 0 1-2-2z" fill="#d97706" stroke="#8b5a22" stroke-width="0.7" stroke-linejoin="round"></path>
+                            <path d="M5.2 10.6h11a2 2 0 0 1 2 2v1.6H7.2a2 2 0 0 1-2-2z" fill="#ef4444" stroke="#8b1e1e" stroke-width="0.7" stroke-linejoin="round"></path>
+                            <path d="M5.8 7.4h11.2a2 2 0 0 1 2 2V11H7.8a2 2 0 0 1-2-2z" fill="#22c55e" stroke="#1f6b3b" stroke-width="0.7" stroke-linejoin="round"></path>
+                            <path d="M7 6.6h9.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                            <path d="M7 9.1h7.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                            <path d="M14.6 4.7l1.5-1.5 3.2 3.2-1.5 1.5-3.9 1.1z" fill="#f59e0b" stroke="#92400e" stroke-width="0.7" stroke-linejoin="round"></path>
+                            <path d="M13.6 5.7l3.2 3.2" fill="none" stroke="#78350f" stroke-width="1.2" stroke-linecap="round"></path>
+                        </svg>
+                    </span>
+                    <span class="brand__text">
+                        <strong>StudyHub</strong>
+                        <small>Modern Learning Platform</small>
+                    </span>
+                </a>
+                <p>StudyHub is a premium LMS landing page concept for students, teachers, and administrators.</p>
+            </div>
+
+            <div>
+                <h3>Quick Links</h3>
+                <a href="index.html#home">Home</a>
+                <a href="index.html#courses">Courses</a>
+                <a href="index.html#features">Features</a>
+                <a href="student-dashboard.html">Dashboard</a>
+                <a href="about.html">About</a>
+            </div>
+
+            <div>
+                <h3>Resources</h3>
+                <a href="contact.html">Support</a>
+                <a href="contact.html">Help Center</a>
+                <a href="contact.html">Documentation</a>
+                <a href="contact.html">Community</a>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+                <a href="mailto:hello@studyhub.example">hello@studyhub.example</a>
+                <a href="contact.html">LinkedIn</a>
+                <a href="contact.html">GitHub</a>
+                <a href="contact.html">Twitter</a>
+            </div>
+
+            <div>
+                <h3>Social Media</h3>
+                <div class="social-links" aria-label="Social media links">
+                    <a class="social-link" href="https://github.com/Shah-Vishwa" aria-label="GitHub" target="_blank" rel="noreferrer noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.21.68-.48v-1.7c-2.78.6-3.37-1.2-3.37-1.2-.45-1.14-1.1-1.44-1.1-1.44-.9-.61.07-.6.07-.6 1 .08 1.54 1.03 1.54 1.03.88 1.52 2.3 1.08 2.86.83.09-.64.35-1.08.63-1.33-2.22-.25-4.56-1.1-4.56-4.89 0-1.08.38-1.96 1.02-2.65-.1-.25-.44-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.54 1.37.2 2.39.1 2.64.64.69 1.02 1.57 1.02 2.65 0 3.8-2.35 4.64-4.58 4.89.36.31.68.91.68 1.84v2.73c0 .28.18.58.69.48A10 10 0 0 0 12 2z"></path></svg>
+                        <span class="sr-only">GitHub</span>
+                    </a>
+                    <a class="social-link" href="signup.html" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 6.5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.5 21V9h4.9v12H3.5Zm7.5 0V9h4.7v1.65h.07A5.15 5.15 0 0 1 19.99 9c3.72 0 4.41 2.45 4.41 5.64V21h-4.9v-5.62c0-1.34-.03-3.06-1.86-3.06-1.86 0-2.15 1.45-2.15 2.96V21H11Z"></path></svg>
+                        <span class="sr-only">LinkedIn</span>
+                    </a>
+                    <a class="social-link" href="contact.html" aria-label="X">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4.4l4.05 5.63L16.9 4H21l-5.8 7.9L21.5 20H17l-4.5-6.18L7.8 20H3.5l6.1-8.3L4 4Zm7.25 9.9 1.22 1.66L17.4 19h-2.15l-4-5.44Z"></path></svg>
+                        <span class="sr-only">X</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container footer__bottom">
+            <p>© <span class="year"></span> StudyHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
