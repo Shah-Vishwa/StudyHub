@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse StudyHub courses and open detailed learning paths.">
+    <title>StudyHub | Courses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="back-to-top" type="button" aria-label="Back to top"><span aria-hidden="true">↑</span></button>
+
+    <header class="navbar" id="site-navbar">
+        <div class="navbar__inner">
+            <a class="brand" href="index.html" aria-label="StudyHub home">
+                <span class="brand__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path d="M4.6 13.8h10.7a2 2 0 0 1 2 2v1.5H6.6a2 2 0 0 1-2-2z" fill="#d97706" stroke="#8b5a22" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M5.2 10.6h11a2 2 0 0 1 2 2v1.6H7.2a2 2 0 0 1-2-2z" fill="#ef4444" stroke="#8b1e1e" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M5.8 7.4h11.2a2 2 0 0 1 2 2V11H7.8a2 2 0 0 1-2-2z" fill="#22c55e" stroke="#1f6b3b" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M7 6.6h9.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                        <path d="M7 9.1h7.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                        <path d="M14.6 4.7l1.5-1.5 3.2 3.2-1.5 1.5-3.9 1.1z" fill="#f59e0b" stroke="#92400e" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M13.6 5.7l3.2 3.2" fill="none" stroke="#78350f" stroke-width="1.2" stroke-linecap="round"></path>
+                    </svg>
+                </span>
+                <span class="brand__text"><strong>StudyHub</strong><small>Cloud-ready LMS</small></span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation"><span></span><span></span><span></span></button>
+
+            <nav class="nav" id="primary-navigation" aria-label="Primary navigation">
+                <a href="index.html#home">Home</a>
+                <a href="course.html">Courses</a>
+                <a href="features.html">Features</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a class="nav__link nav__link--ghost" href="login.html">Login</a>
+                <a class="nav__link nav__link--ghost" href="signup.html">Sign Up</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="section-heading__eyebrow">Course library</p>
+                    <h1>Choose a learning path</h1>
+                    <p>Each course page now includes subject-based study notes and a clear learning roadmap.</p>
+                </div>
+
+                <div class="course-grid">
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--devops" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>Linux Administration</span>
+                                <span>4.9</span>
+                            </div>
+                            <h3>Linux Administration Bootcamp</h3>
+                            <p class="course-card__instructor">By Sarah Johnson</p>
+                            <div class="course-card__details">
+                                <span>10 Weeks</span>
+                                <span>Beginner</span>
+                                <span>$69</span>
+                            </div>
+                            <a class="button button--course course-card__link" href="course-detail.html?course=linux">Open Notes</a>
+                        </div>
+                    </article>
+
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--web" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>Version Control</span>
+                                <span>4.8</span>
+                            </div>
+                            <h3>Git &amp; GitHub Essentials</h3>
+                            <p class="course-card__instructor">By Alex Morgan</p>
+                            <div class="course-card__details">
+                                <span>6 Weeks</span>
+                                <span>Intermediate</span>
+                                <span>$49</span>
+                            </div>
+                            <a class="button button--course course-card__link" href="course-detail.html?course=git">Open Notes</a>
+                        </div>
+                    </article>
+
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--security" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>Networking</span>
+                                <span>4.7</span>
+                            </div>
+                            <h3>Networking Fundamentals</h3>
+                            <p class="course-card__instructor">By Priya Patel</p>
+                            <div class="course-card__details">
+                                <span>8 Weeks</span>
+                                <span>Beginner</span>
+                                <span>$59</span>
+                            </div>
+                            <a class="button button--course course-card__link" href="course-detail.html?course=networking">Open Notes</a>
+                        </div>
+                    </article>
+
+                    <article class="course-card reveal">
+                        <div class="course-card__art course-card__art--cloud" aria-hidden="true"></div>
+                        <div class="course-card__body">
+                            <div class="course-card__meta">
+                                <span>AWS Cloud</span>
+                                <span>5.0</span>
+                            </div>
+                            <h3>AWS Cloud Practitioner</h3>
+                            <p class="course-card__instructor">By Michael Chen</p>
+                            <div class="course-card__details">
+                                <span>9 Weeks</span>
+                                <span>Beginner</span>
+                                <span>$79</span>
+                            </div>
+                            <a class="button button--course course-card__link" href="course-detail.html?course=aws">Open Notes</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__bottom">
+            <p>© <span class="year"></span> StudyHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

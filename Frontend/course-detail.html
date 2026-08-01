@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Study notes for each course subject inside StudyHub.">
+    <title>StudyHub | Course Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="back-to-top" type="button" aria-label="Back to top"><span aria-hidden="true">↑</span></button>
+
+    <header class="navbar" id="site-navbar">
+        <div class="navbar__inner">
+            <a class="brand" href="index.html" aria-label="StudyHub home">
+                <span class="brand__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path d="M4.6 13.8h10.7a2 2 0 0 1 2 2v1.5H6.6a2 2 0 0 1-2-2z" fill="#d97706" stroke="#8b5a22" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M5.2 10.6h11a2 2 0 0 1 2 2v1.6H7.2a2 2 0 0 1-2-2z" fill="#ef4444" stroke="#8b1e1e" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M5.8 7.4h11.2a2 2 0 0 1 2 2V11H7.8a2 2 0 0 1-2-2z" fill="#22c55e" stroke="#1f6b3b" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M7 6.6h9.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                        <path d="M7 9.1h7.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                        <path d="M14.6 4.7l1.5-1.5 3.2 3.2-1.5 1.5-3.9 1.1z" fill="#f59e0b" stroke="#92400e" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M13.6 5.7l3.2 3.2" fill="none" stroke="#78350f" stroke-width="1.2" stroke-linecap="round"></path>
+                    </svg>
+                </span>
+                <span class="brand__text"><strong>StudyHub</strong><small>Cloud-ready LMS</small></span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation"><span></span><span></span><span></span></button>
+
+            <nav class="nav" id="primary-navigation" aria-label="Primary navigation">
+                <a href="index.html#home">Home</a>
+                <a href="course.html">Courses</a>
+                <a href="features.html">Features</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a class="nav__link nav__link--ghost" href="login.html">Login</a>
+                <a class="nav__link nav__link--ghost" href="signup.html">Sign Up</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container course-shell">
+                <div class="page-hero reveal">
+                    <p class="section-heading__eyebrow">Course detail</p>
+                    <h1 id="course-title">Course Notes</h1>
+                    <p id="course-description"></p>
+                    <a class="button button--secondary" href="course.html">Back to all courses</a>
+                </div>
+
+                <div class="content-grid">
+                    <article class="detail-card reveal">
+                        <h2>What you will learn</h2>
+                        <ul id="course-objectives" class="page-list"></ul>
+                    </article>
+
+                    <article class="detail-card reveal">
+                        <h2>Subject notes</h2>
+                        <div id="course-notes" class="notes-stack"></div>
+                    </article>
+
+                    <article class="detail-card reveal">
+                        <h2>Key commands</h2>
+                        <div id="course-commands" class="notes-stack"></div>
+                    </article>
+
+                    <article class="detail-card reveal">
+                        <h2>Practice tasks</h2>
+                        <ul id="course-practice" class="page-list"></ul>
+                    </article>
+
+                    <article class="detail-card reveal">
+                        <h2>Downloadable notes</h2>
+                        <div id="course-downloads" class="notes-stack"></div>
+                    </article>
+
+                    <article class="detail-card reveal">
+                        <h2>Video lessons</h2>
+                        <div id="course-videos" class="notes-stack"></div>
+                    </article>
+
+                    <article class="detail-card reveal">
+                        <h2>Quiz section</h2>
+                        <div id="course-quiz" class="notes-stack"></div>
+                    </article>
+
+                    <article class="detail-card reveal">
+                        <h2>Course roadmap</h2>
+                        <ul id="course-roadmap" class="page-list"></ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__bottom">
+            <p>© <span class="year"></span> StudyHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const courseData = {
+            linux: {
+                title: 'Linux Administration Bootcamp',
+                description: 'Focus on user management, permissions, shell commands, and server maintenance.',
+                objectives: ['Manage users and groups', 'Work with permissions and ownership', 'Troubleshoot common Linux issues'],
+                notes: [
+                    { heading: 'File permissions', body: 'Remember that read, write, and execute map to the owner, group, and others. Practice chmod and chown until they feel natural.' },
+                    { heading: 'Package management', body: 'Use apt or yum commands to update systems and keep packages secure. Always review what changed before applying updates.' },
+                    { heading: 'Service control', body: 'Use systemctl to manage services and confirm status with journalctl when a service fails.' }
+                ],
+                commands: [
+                    { label: 'View current directory', code: 'pwd' },
+                    { label: 'List files', code: 'ls -la' },
+                    { label: 'Create a folder', code: 'mkdir demo' },
+                    { label: 'Copy a file', code: 'cp file.txt /tmp/file.txt' },
+                    { label: 'Move or rename', code: 'mv oldname newname' },
+                    { label: 'Change permissions', code: 'chmod 755 script.sh' },
+                    { label: 'Change owner', code: 'chown user:group file.txt' },
+                    { label: 'Install a package', code: 'sudo apt update && sudo apt install nginx' },
+                    { label: 'Check a service', code: 'systemctl status ssh' },
+                    { label: 'View recent logs', code: 'journalctl -xe' }
+                ],
+                practice: ['Create a new user and assign sudo access', 'Practice changing file permissions and ownership', 'Install a package and verify the service is active'],
+                downloads: [{ title: 'Linux Basics PDF', link: 'https://example.com/linux-basics.pdf' }, { title: 'Command Cheat Sheet', link: 'https://example.com/linux-cheatsheet.pdf' }],
+                videos: [{ title: 'Linux File Permissions', url: 'https://www.youtube.com/embed/RZCkOC7WmV8' }, { title: 'Managing Services in Linux', url: 'https://www.youtube.com/embed/2ZtBKw0G0yU' }],
+                quiz: [{ question: 'Which command shows hidden files in Linux?', options: ['ls', 'ls -a', 'pwd', 'mkdir'], answer: 'ls -a' }, { question: 'Which command is used to change permissions?', options: ['chmod', 'chown', 'sudo', 'cp'], answer: 'chmod' }],
+                roadmap: ['Week 1: Linux basics and terminal navigation', 'Week 2: Users, groups, and permissions', 'Week 3: Services, logs, and package management']
+            },
+            git: {
+                title: 'Git & GitHub Essentials',
+                description: 'Understand branching, commits, pull requests, and collaboration workflows.',
+                objectives: ['Create branches cleanly', 'Write helpful commit messages', 'Review pull requests with confidence'],
+                notes: [
+                    { heading: 'Branching', body: 'Create short-lived branches for every feature or bug fix so your main branch stays stable.' },
+                    { heading: 'Commit history', body: 'Use git log and git status regularly to understand the current state of your repository.' },
+                    { heading: 'Pull requests', body: 'Describe the change clearly and include testing notes so reviewers can act quickly.' }
+                ],
+                commands: [
+                    { label: 'Initialize a repo', code: 'git init' },
+                    { label: 'Check status', code: 'git status' },
+                    { label: 'Stage changes', code: 'git add .' },
+                    { label: 'Commit changes', code: 'git commit -m "Add feature"' },
+                    { label: 'Create a branch', code: 'git checkout -b feature/login' },
+                    { label: 'Merge a branch', code: 'git merge feature/login' },
+                    { label: 'Push to GitHub', code: 'git push origin main' },
+                    { label: 'Pull latest changes', code: 'git pull origin main' }
+                ],
+                practice: ['Create a branch for a feature and merge it back safely', 'Write clear commit messages for each change', 'Open and review a pull request workflow'],
+                downloads: [{ title: 'Git Workflow PDF', link: 'https://example.com/git-workflow.pdf' }, { title: 'GitHub Collaboration Guide', link: 'https://example.com/github-collab.pdf' }],
+                videos: [{ title: 'Git Basics', url: 'https://www.youtube.com/embed/USjZcfj8yxE' }, { title: 'Pull Requests Explained', url: 'https://www.youtube.com/embed/Uszj_k0DGsg' }],
+                quiz: [{ question: 'Which command stages all changes?', options: ['git commit', 'git push', 'git add .', 'git merge'], answer: 'git add .' }, { question: 'What is the purpose of a pull request?', options: ['To delete a branch', 'To review and discuss changes before merging', 'To rename a repo', 'To initialize Git'], answer: 'To review and discuss changes before merging' }],
+                roadmap: ['Week 1: Repo setup and basic commits', 'Week 2: Branching and merge workflows', 'Week 3: Pull requests and collaboration']
+            },
+            networking: {
+                title: 'Networking Fundamentals',
+                description: 'Learn the basics of IP addressing, routing, and troubleshooting network issues.',
+                objectives: ['Understand TCP/IP basics', 'Troubleshoot connectivity', 'Recognize common network services'],
+                notes: [
+                    { heading: 'IP addressing', body: 'Practice distinguishing private and public IP ranges and how subnet masks define network boundaries.' },
+                    { heading: 'Routing', body: 'A router forwards traffic based on destination networks, while switches move traffic inside a local network.' },
+                    { heading: 'Diagnostics', body: 'Use ping and traceroute to isolate where traffic stops and confirm your network assumptions.' }
+                ],
+                commands: [
+                    { label: 'Check IP address', code: 'ip addr' },
+                    { label: 'Show routing table', code: 'ip route' },
+                    { label: 'Ping a host', code: 'ping 8.8.8.8' },
+                    { label: 'Trace a route', code: 'traceroute example.com' },
+                    { label: 'Check open ports', code: 'netstat -tuln' },
+                    { label: 'Test DNS', code: 'nslookup example.com' },
+                    { label: 'Connect via SSH', code: 'ssh user@server' }
+                ],
+                practice: ['Identify the default gateway on your network', 'Trace a route to a known website', 'Check which ports are listening on your machine'],
+                downloads: [{ title: 'Networking Basics PDF', link: 'https://example.com/networking-basics.pdf' }, { title: 'Troubleshooting Guide', link: 'https://example.com/network-troubleshooting.pdf' }],
+                videos: [{ title: 'Networking Fundamentals', url: 'https://www.youtube.com/embed/DrQx4Au8wYg' }, { title: 'How Routing Works', url: 'https://www.youtube.com/embed/7zG8rKivKTY' }],
+                quiz: [{ question: 'What does ping test?', options: ['Disk space', 'Connectivity', 'CPU usage', 'File permissions'], answer: 'Connectivity' }, { question: 'What does a router do?', options: ['Stores files', 'Forwards traffic between networks', 'Creates databases', 'Runs applications'], answer: 'Forwards traffic between networks' }],
+                roadmap: ['Week 1: IP addressing and subnetting', 'Week 2: Routing and switching fundamentals', 'Week 3: Diagnostics and troubleshooting']
+            },
+            aws: {
+                title: 'AWS Cloud Practitioner',
+                description: 'Build confidence around cloud concepts, storage, compute, and shared responsibility.',
+                objectives: ['Describe core AWS services', 'Compare compute and storage options', 'Understand security and billing basics'],
+                notes: [
+                    { heading: 'Shared responsibility', body: 'AWS handles the infrastructure security while customers remain responsible for data and application-level security.' },
+                    { heading: 'Storage choices', body: 'Choose S3 for object storage, EBS for block storage, and EFS when shared file access is needed.' },
+                    { heading: 'Cost awareness', body: 'Check instance size, storage class, and data transfer costs before moving workloads to production.' }
+                ],
+                commands: [
+                    { label: 'List buckets', code: 'aws s3 ls' },
+                    { label: 'Describe EC2 instances', code: 'aws ec2 describe-instances' },
+                    { label: 'List IAM users', code: 'aws iam list-users' },
+                    { label: 'Show current region', code: 'aws configure get region' },
+                    { label: 'Start an instance', code: 'aws ec2 start-instances --instance-ids i-1234567890abcdef0' },
+                    { label: 'Stop an instance', code: 'aws ec2 stop-instances --instance-ids i-1234567890abcdef0' }
+                ],
+                practice: ['List your S3 buckets and inspect available storage', 'Describe EC2 instances in a chosen region', 'Review IAM users and security policies'],
+                downloads: [{ title: 'AWS Essentials PDF', link: 'https://example.com/aws-essentials.pdf' }, { title: 'Cloud Computing Guide', link: 'https://example.com/cloud-guide.pdf' }],
+                videos: [{ title: 'AWS Cloud Basics', url: 'https://www.youtube.com/embed/3hLmDS179YE' }, { title: 'EC2 and S3 Overview', url: 'https://www.youtube.com/embed/2LaAJq1l8Go' }],
+                quiz: [{ question: 'What does S3 provide?', options: ['Virtual machines', 'Object storage', 'Email service', 'Database service'], answer: 'Object storage' }, { question: 'What is EC2?', options: ['A database engine', 'A virtual server service', 'A monitoring tool', 'A DNS provider'], answer: 'A virtual server service' }],
+                roadmap: ['Week 1: Cloud foundations and shared responsibility', 'Week 2: Compute, storage, and networking basics', 'Week 3: Security, IAM, and billing awareness']
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('course') || 'linux';
+            const course = courseData[slug] || courseData.linux;
+
+            document.getElementById('course-title').textContent = course.title;
+            document.getElementById('course-description').textContent = course.description;
+
+            const objectiveList = document.getElementById('course-objectives');
+            objectiveList.innerHTML = course.objectives.map((item) => `<li>${item}</li>`).join('');
+
+            const notesContainer = document.getElementById('course-notes');
+            notesContainer.innerHTML = course.notes.map((note) => `
+                <div class="notes-card">
+                    <h3>${note.heading}</h3>
+                    <p>${note.body}</p>
+                </div>
+            `).join('');
+
+            const commandsContainer = document.getElementById('course-commands');
+            commandsContainer.innerHTML = course.commands.map((command) => `
+                <div class="notes-card">
+                    <h3>${command.label}</h3>
+                    <code>${command.code}</code>
+                </div>
+            `).join('');
+
+            const practiceContainer = document.getElementById('course-practice');
+            practiceContainer.innerHTML = course.practice.map((item) => `<li>${item}</li>`).join('');
+
+            const downloadsContainer = document.getElementById('course-downloads');
+            downloadsContainer.innerHTML = course.downloads.map((download) => `
+                <div class="notes-card">
+                    <h3>${download.title}</h3>
+                    <a class="resource-link" href="${download.link}" target="_blank" rel="noreferrer noopener">Open resource</a>
+                </div>
+            `).join('');
+
+            const videosContainer = document.getElementById('course-videos');
+            videosContainer.innerHTML = course.videos.map((video) => `
+                <div class="notes-card">
+                    <h3>${video.title}</h3>
+                    <iframe src="${video.url}" title="${video.title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            `).join('');
+
+            const quizContainer = document.getElementById('course-quiz');
+            quizContainer.innerHTML = course.quiz.map((item) => `
+                <div class="notes-card quiz-card">
+                    <h3>${item.question}</h3>
+                    <ul class="quiz-options">
+                        ${item.options.map((option) => `<li>${option}</li>`).join('')}
+                    </ul>
+                    <p class="quiz-answer">Answer: ${item.answer}</p>
+                </div>
+            `).join('');
+
+            const roadmapContainer = document.getElementById('course-roadmap');
+            roadmapContainer.innerHTML = course.roadmap.map((item) => `<li>${item}</li>`).join('');
+        });
+    </script>
+</body>
+</html>

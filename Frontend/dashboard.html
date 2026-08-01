@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact StudyHub or start your learning journey today.">
-    <title>StudyHub | Contact</title>
+    <meta name="description" content="StudyHub dashboard for learners and instructors.">
+    <title>StudyHub | Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -34,9 +34,9 @@
 
             <nav class="nav" id="primary-navigation" aria-label="Primary navigation">
                 <a href="index.html#home">Home</a>
-                <a href="index.html#courses">Courses</a>
-                <a href="index.html#features">Features</a>
-                <a href="student-dashboard.html">Dashboard</a>
+                <a href="course.html">Courses</a>
+                <a href="features.html">Features</a>
+                <a href="dashboard.html">Dashboard</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
                 <a class="nav__link nav__link--ghost" href="login.html">Login</a>
@@ -46,50 +46,33 @@
     </header>
 
     <main>
-        <section class="section cta" id="cta">
-            <div class="container cta__panel reveal">
-                <div>
-                    <p class="section-heading__eyebrow">Contact StudyHub</p>
-                    <h1>Ready to Start Learning?</h1>
-                    <p>Use this page as the entry point for registration, support, or general questions about the StudyHub project.</p>
-                </div>
-                <div class="cta__actions">
-                    <a class="button button--primary" href="mailto:hello@studyhub.example">Email Us</a>
-                    <a class="button button--secondary" href="index.html#courses">Browse Courses</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section--alt">
-            <div class="container about-grid">
-                <div class="about-grid__visual reveal" aria-hidden="true">
-                    <div class="about-grid__frame">
-                        <div class="about-grid__screen">
-                            <div class="about-grid__mini-card about-grid__mini-card--top">Support</div>
-                            <div class="about-grid__mini-card about-grid__mini-card--mid">Registration</div>
-                            <div class="about-grid__mini-card about-grid__mini-card--bottom">Partnerships</div>
-                        </div>
-                    </div>
+        <section class="section">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="section-heading__eyebrow">Dashboard</p>
+                    <h1>Welcome to your StudyHub workspace</h1>
+                    <p>Track your learning, review notes, and jump back into your next lesson.</p>
                 </div>
 
-                <div class="about-grid__content reveal">
-                    <div class="section-heading section-heading--left">
-                        <p class="section-heading__eyebrow">Get in touch</p>
-                        <h2>Contact details</h2>
-                        <p>StudyHub is built as a portfolio project, so the contact page is intentionally simple and clear.</p>
-                    </div>
-
-                    <ul class="checklist">
-                        <li>Email: hello@studyhub.example</li>
-                        <li>Support: available for project feedback and collaboration</li>
-                        <li>Social: <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">Open LinkedIn</a></li>
-                    </ul>
+                <div class="dashboard-grid">
+                    <article class="dashboard-card reveal">
+                        <h2>Current learning goal</h2>
+                        <p>Complete one course module and review your notes before the next class.</p>
+                    </article>
+                    <article class="dashboard-card reveal">
+                        <h2>Recent courses</h2>
+                        <p>Linux Administration, Git &amp; GitHub, Networking Fundamentals.</p>
+                    </article>
+                    <article class="dashboard-card reveal">
+                        <h2>Quick actions</h2>
+                        <p><a href="course.html">Browse courses</a> • <a href="features.html">Review features</a></p>
+                    </article>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer" id="contact">
+    <footer class="footer">
         <div class="container footer__bottom">
             <p>© <span class="year"></span> StudyHub. All rights reserved.</p>
         </div>

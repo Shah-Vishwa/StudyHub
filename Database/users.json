@@ -1,0 +1,11 @@
+[
+  {
+    "id": "ms7gnpt8",
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "test@example.com",
+    "password": "secret123",
+    "role": "Student",
+    "createdAt": "2026-07-30T11:59:19.148Z"
+  }
+]
