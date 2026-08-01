@@ -7,5 +7,32 @@
     "password": "secret123",
     "role": "Student",
     "createdAt": "2026-07-30T11:59:19.148Z"
+  },
+  {
+    "id": "msaiuf3n",
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "test+280d01a8ede7449f851b47c037b0ee12@example.com",
+    "password": "secret123",
+    "role": "Student",
+    "createdAt": "2026-08-01T20:53:49.5787677+05:30"
+  },
+  {
+    "id": "msak5la9",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@example.com",
+    "password": "password123",
+    "role": "Student",
+    "createdAt": "2026-08-01T16:00:30.465Z"
+  },
+  {
+    "id": "msak9del",
+    "firstName": "VISHWA",
+    "lastName": "SHAH",
+    "email": "vishwashah713@gmail.com",
+    "password": "123",
+    "role": "Student",
+    "createdAt": "2026-08-01T16:03:26.778Z"
   }
 ]

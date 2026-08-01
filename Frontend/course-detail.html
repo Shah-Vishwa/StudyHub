@@ -40,7 +40,7 @@
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
                 <a class="nav__link nav__link--ghost" href="login.html">Login</a>
-                <a class="nav__link nav__link--ghost" href="signup.html">Sign Up</a>
+                <a class="nav__link nav__link--ghost" href="register.html">Register</a>
             </nav>
         </div>
     </header>
@@ -49,51 +49,55 @@
         <section class="section">
             <div class="container course-shell">
                 <div class="page-hero reveal">
-                    <p class="section-heading__eyebrow">Course detail</p>
-                    <h1 id="course-title">Course Notes</h1>
-                    <p id="course-description"></p>
-                    <a class="button button--secondary" href="course.html">Back to all courses</a>
+                    <div class="page-hero__top">
+                        <div class="page-hero__image" id="course-image" aria-hidden="true"></div>
+                        <div class="page-hero__content">
+                            <p class="section-heading__eyebrow">Course detail</p>
+                            <h1 id="course-title">Course Notes</h1>
+                            <p id="course-description"></p>
+                            <div class="detail-meta">
+                                <span id="course-category"></span>
+                                <span id="course-duration"></span>
+                                <span id="course-level"></span>
+                                <span id="course-price"></span>
+                            </div>
+                            <div class="page-hero__actions">
+                                <a class="button button--primary" href="register.html" id="enroll-details">Enroll Now</a>
+                                <a class="button button--secondary" href="course.html">Back to all courses</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="content-grid">
                     <article class="detail-card reveal">
-                        <h2>What you will learn</h2>
-                        <ul id="course-objectives" class="page-list"></ul>
+                        <h2>Course Description</h2>
+                        <p id="course-full-description" class="detail-card__text"></p>
                     </article>
 
                     <article class="detail-card reveal">
-                        <h2>Subject notes</h2>
-                        <div id="course-notes" class="notes-stack"></div>
+                        <h2>Curriculum</h2>
+                        <ul id="course-curriculum" class="page-list"></ul>
                     </article>
 
                     <article class="detail-card reveal">
-                        <h2>Key commands</h2>
-                        <div id="course-commands" class="notes-stack"></div>
+                        <h2>Learning Outcomes</h2>
+                        <ul id="course-outcomes" class="page-list"></ul>
                     </article>
 
                     <article class="detail-card reveal">
-                        <h2>Practice tasks</h2>
-                        <ul id="course-practice" class="page-list"></ul>
+                        <h2>Requirements</h2>
+                        <ul id="course-requirements" class="page-list"></ul>
                     </article>
 
                     <article class="detail-card reveal">
-                        <h2>Downloadable notes</h2>
-                        <div id="course-downloads" class="notes-stack"></div>
+                        <h2>Instructor</h2>
+                        <div id="course-instructor" class="detail-card__text"></div>
                     </article>
 
                     <article class="detail-card reveal">
-                        <h2>Video lessons</h2>
-                        <div id="course-videos" class="notes-stack"></div>
-                    </article>
-
-                    <article class="detail-card reveal">
-                        <h2>Quiz section</h2>
-                        <div id="course-quiz" class="notes-stack"></div>
-                    </article>
-
-                    <article class="detail-card reveal">
-                        <h2>Course roadmap</h2>
-                        <ul id="course-roadmap" class="page-list"></ul>
+                        <h2>Reviews</h2>
+                        <div id="course-reviews" class="notes-stack"></div>
                     </article>
                 </div>
             </div>

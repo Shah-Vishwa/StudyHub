@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Create a new StudyHub account and start learning.">
-    <title>StudyHub | Sign Up</title>
+    <title>StudyHub | Register</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
                 <a class="nav__link nav__link--ghost" href="login.html">Login</a>
-                <a class="nav__link nav__link--ghost" href="signup.html">Sign Up</a>
+                <a class="nav__link nav__link--ghost" href="register.html">Register</a>
             </nav>
         </div>
     </header>
@@ -100,7 +100,7 @@
 
                 <div class="auth-panel auth-panel--info reveal">
                     <p class="section-heading__eyebrow">Get started</p>
-                    <h1>Sign up for a cleaner learning experience</h1>
+                    <h1>Register for a cleaner learning experience</h1>
                     <p>Use one platform for learning materials, assignments, dashboards, and future cloud-ready features.</p>
 
                     <div class="auth-highlights">
@@ -128,6 +128,35 @@
     <script>
         const signupForm = document.getElementById('signup-form');
         const signupMessage = document.getElementById('signup-message');
+        const apiEndpoints = window.location.protocol === 'file:'
+            ? ['http://localhost:3000/api/register']
+            : ['/api/register', 'http://localhost:3000/api/register'];
+
+        async function registerUser(user) {
+            let lastError = null;
+
+            for (const endpoint of apiEndpoints) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(user)
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(result.message || 'Unable to save right now. Please try again.');
+                    }
+
+                    return result;
+                } catch (error) {
+                    lastError = error;
+                }
+            }
+
+            throw lastError || new Error('Unable to save right now. Please try again.');
+        }
 
         if (signupForm) {
             signupForm.addEventListener('submit', async (event) => {
@@ -143,22 +172,24 @@
                 };
 
                 signupMessage.textContent = 'Saving your account...';
+                signupMessage.className = 'auth-form__message'; // reset styling classes
 
                 try {
-                    const response = await fetch('/api/register', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(user)
-                    });
-
-                    const result = await response.json();
+                    const result = await registerUser(user);
                     signupMessage.textContent = result.message || 'Account saved successfully.';
-
-                    if (response.ok) {
-                        window.location.href = 'student-dashboard.html';
+                    signupMessage.style.color = '#22c55e'; // Green for success
+                    
+                    // Automatically log the user in by saving to localStorage
+                    if (result.user) {
+                        localStorage.setItem('studyhub_user', JSON.stringify(result.user));
                     }
+                    
+                    setTimeout(() => {
+                        window.location.href = 'student-dashboard.html';
+                    }, 1000);
                 } catch (error) {
-                    signupMessage.textContent = 'Unable to save right now. Please try again.';
+                    signupMessage.textContent = error.message || 'Unable to save right now. Please try again.';
+                    signupMessage.style.color = '#ef4444'; // Red for error
                 }
             });
         }

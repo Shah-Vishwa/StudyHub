@@ -40,7 +40,8 @@
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
                 <a class="nav__link nav__link--ghost" href="login.html">Login</a>
-                <a class="nav__link nav__link--ghost" href="signup.html">Sign Up</a>
+                <a class="nav__link nav__link--ghost" href="register.html">Register</a>
+                <a class="nav__link nav__link--solid" href="#course-search">Search Courses</a>
             </nav>
         </div>
     </header>
@@ -51,81 +52,26 @@
                 <div class="section-heading reveal">
                     <p class="section-heading__eyebrow">Course library</p>
                     <h1>Choose a learning path</h1>
-                    <p>Each course page now includes subject-based study notes and a clear learning roadmap.</p>
+                    <p>Explore practical, career-focused courses with clear outcomes, instructor guidance, and hands-on learning.</p>
                 </div>
 
-                <div class="course-grid">
-                    <article class="course-card reveal">
-                        <div class="course-card__art course-card__art--devops" aria-hidden="true"></div>
-                        <div class="course-card__body">
-                            <div class="course-card__meta">
-                                <span>Linux Administration</span>
-                                <span>4.9</span>
-                            </div>
-                            <h3>Linux Administration Bootcamp</h3>
-                            <p class="course-card__instructor">By Sarah Johnson</p>
-                            <div class="course-card__details">
-                                <span>10 Weeks</span>
-                                <span>Beginner</span>
-                                <span>$69</span>
-                            </div>
-                            <a class="button button--course course-card__link" href="course-detail.html?course=linux">Open Notes</a>
+                <div class="course-section reveal">
+                    <div class="course-section__bar">
+                        <div>
+                            <strong>Featured Courses</strong>
+                            <p>Browse practical learning paths with clear outcomes, useful notes, and direct enrollment.</p>
                         </div>
-                    </article>
-
-                    <article class="course-card reveal">
-                        <div class="course-card__art course-card__art--web" aria-hidden="true"></div>
-                        <div class="course-card__body">
-                            <div class="course-card__meta">
-                                <span>Version Control</span>
-                                <span>4.8</span>
-                            </div>
-                            <h3>Git &amp; GitHub Essentials</h3>
-                            <p class="course-card__instructor">By Alex Morgan</p>
-                            <div class="course-card__details">
-                                <span>6 Weeks</span>
-                                <span>Intermediate</span>
-                                <span>$49</span>
-                            </div>
-                            <a class="button button--course course-card__link" href="course-detail.html?course=git">Open Notes</a>
-                        </div>
-                    </article>
-
-                    <article class="course-card reveal">
-                        <div class="course-card__art course-card__art--security" aria-hidden="true"></div>
-                        <div class="course-card__body">
-                            <div class="course-card__meta">
-                                <span>Networking</span>
-                                <span>4.7</span>
-                            </div>
-                            <h3>Networking Fundamentals</h3>
-                            <p class="course-card__instructor">By Priya Patel</p>
-                            <div class="course-card__details">
-                                <span>8 Weeks</span>
-                                <span>Beginner</span>
-                                <span>$59</span>
-                            </div>
-                            <a class="button button--course course-card__link" href="course-detail.html?course=networking">Open Notes</a>
-                        </div>
-                    </article>
-
-                    <article class="course-card reveal">
-                        <div class="course-card__art course-card__art--cloud" aria-hidden="true"></div>
-                        <div class="course-card__body">
-                            <div class="course-card__meta">
-                                <span>AWS Cloud</span>
-                                <span>5.0</span>
-                            </div>
-                            <h3>AWS Cloud Practitioner</h3>
-                            <p class="course-card__instructor">By Michael Chen</p>
-                            <div class="course-card__details">
-                                <span>9 Weeks</span>
-                                <span>Beginner</span>
-                                <span>$79</span>
-                            </div>
-                            <a class="button button--course course-card__link" href="course-detail.html?course=aws">Open Notes</a>
-                        </div>
-                    </article>
+                        <a class="button button--secondary" href="dashboard.html">Open dashboard</a>
+                    </div>
+                    <div class="course-search" id="course-search">
+                        <label class="course-search__field" for="course-search-input">
+                            <span>Search courses</span>
+                            <input id="course-search-input" type="search" placeholder="Search by course, category, instructor, or level">
+                        </label>
+                        <p class="course-search__hint">Type to filter the course cards instantly.</p>
+                    </div>
+                    <div class="course-grid" id="courses-grid"></div>
+                    <p class="course-search__empty" id="course-empty-state" hidden>No courses match your search.</p>
                 </div>
             </div>
         </section>

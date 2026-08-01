@@ -1,11 +1,32 @@
-const http = require('http');
+const express = require('express');
+const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const { URL } = require('url');
 
+const app = express();
 const port = process.env.PORT || 3000;
+
 const frontendDir = path.join(__dirname, '..', 'Frontend');
 const databaseFile = path.join(__dirname, '..', 'Database', 'users.json');
+
+// Ensure Database directory exists
+const dbDir = path.dirname(databaseFile);
+if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+}
+
+// Ensure users.json exists and is an array
+if (!fs.existsSync(databaseFile)) {
+    fs.writeFileSync(databaseFile, JSON.stringify([], null, 2));
+}
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static frontend files
+app.use(express.static(frontendDir));
 
 const dashboardData = {
     student: 'Vishwa Shah',
@@ -37,115 +58,96 @@ function saveUsers(users) {
     fs.writeFileSync(databaseFile, JSON.stringify(users, null, 2));
 }
 
-function sendJson(res, statusCode, payload) {
-    res.writeHead(statusCode, { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*' });
-    res.end(JSON.stringify(payload, null, 2));
-}
-
-function sendFile(res, filePath) {
-    const ext = path.extname(filePath).toLowerCase();
-    const contentTypes = {
-        '.html': 'text/html; charset=utf-8',
-        '.css': 'text/css; charset=utf-8',
-        '.js': 'application/javascript; charset=utf-8',
-        '.json': 'application/json; charset=utf-8',
-        '.svg': 'image/svg+xml',
-        '.png': 'image/png',
-        '.jpg': 'image/jpeg',
-        '.jpeg': 'image/jpeg',
-        '.webp': 'image/webp'
-    };
-
-    const contentType = contentTypes[ext] || 'application/octet-stream';
-    fs.readFile(filePath, (error, data) => {
-        if (error) {
-            sendJson(res, 404, { error: 'File not found' });
-            return;
-        }
-
-        res.writeHead(200, { 'Content-Type': contentType, 'Access-Control-Allow-Origin': '*' });
-        res.end(data);
-    });
-}
-
-const server = http.createServer((req, res) => {
-    const requestUrl = new URL(req.url, `http://${req.headers.host}`);
-    const pathname = requestUrl.pathname;
-
-    if (pathname === '/api/health' && req.method === 'GET') {
-        sendJson(res, 200, { status: 'ok', service: 'StudyHub API', version: '0.1.0' });
-        return;
-    }
-
-    if (pathname === '/api/student-dashboard' && req.method === 'GET') {
-        sendJson(res, 200, dashboardData);
-        return;
-    }
-
-    if (pathname === '/api/register' && req.method === 'POST') {
-        let body = '';
-
-        req.on('data', (chunk) => {
-            body += chunk;
-        });
-
-        req.on('end', () => {
-            try {
-                const user = JSON.parse(body);
-                const users = loadUsers();
-
-                if (!user.firstName || !user.lastName || !user.email || !user.password || !user.role) {
-                    sendJson(res, 400, { message: 'Please complete all required fields.' });
-                    return;
-                }
-
-                const existing = users.find((entry) => entry.email.toLowerCase() === user.email.toLowerCase());
-                if (existing) {
-                    sendJson(res, 409, { message: 'An account with this email already exists.' });
-                    return;
-                }
-
-                const newUser = {
-                    id: Date.now().toString(36),
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    password: user.password,
-                    role: user.role,
-                    createdAt: user.createdAt || new Date().toISOString()
-                };
-
-                users.push(newUser);
-                saveUsers(users);
-                sendJson(res, 201, { message: 'Account created successfully.', user: newUser });
-            } catch (error) {
-                sendJson(res, 400, { message: 'Invalid request body.' });
-            }
-        });
-        return;
-    }
-
-    if (pathname === '/api/users' && req.method === 'GET') {
-        sendJson(res, 200, { users: loadUsers() });
-        return;
-    }
-
-    if (pathname === '/' || pathname === '/index.html') {
-        sendFile(res, path.join(frontendDir, 'index.html'));
-        return;
-    }
-
-    const safePath = pathname === '/' ? 'index.html' : pathname.replace(/^\//, '');
-    const filePath = path.join(frontendDir, safePath);
-
-    if (filePath.startsWith(frontendDir) && fs.existsSync(filePath)) {
-        sendFile(res, filePath);
-        return;
-    }
-
-    sendJson(res, 404, { error: 'Not found' });
+// GET /api/health
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', service: 'StudyHub API', version: '0.1.0' });
 });
 
-server.listen(port, () => {
+// GET /api/student-dashboard
+app.get('/api/student-dashboard', (req, res) => {
+    res.json(dashboardData);
+});
+
+// POST /api/register
+app.post('/api/register', (req, res) => {
+    try {
+        const user = req.body;
+        const users = loadUsers();
+
+        if (!user.firstName || !user.lastName || !user.email || !user.password || !user.role) {
+            return res.status(400).json({ message: 'Please complete all required fields.' });
+        }
+
+        const existing = users.find((entry) => entry.email.toLowerCase() === user.email.toLowerCase());
+        if (existing) {
+            return res.status(409).json({ message: 'An account with this email already exists.' });
+        }
+
+        const newUser = {
+            id: Date.now().toString(36),
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            password: user.password, // In production, hash passwords (e.g. with bcrypt)
+            role: user.role,
+            createdAt: user.createdAt || new Date().toISOString()
+        };
+
+        users.push(newUser);
+        saveUsers(users);
+
+        res.status(201).json({ message: 'Account created successfully.', user: newUser });
+    } catch (error) {
+        res.status(400).json({ message: 'Invalid request body.' });
+    }
+});
+
+// POST /api/login
+app.post('/api/login', (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Please provide both email and password.' });
+        }
+
+        const users = loadUsers();
+        const user = users.find((entry) => entry.email.toLowerCase() === email.toLowerCase());
+
+        if (!user || user.password !== password) {
+            return res.status(401).json({ message: 'Invalid email or password.' });
+        }
+
+        // Return user details without password for security
+        const safeUser = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            role: user.role,
+            createdAt: user.createdAt
+        };
+
+        res.json({ message: 'Login successful.', user: safeUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
+// GET /api/users (Debug helper)
+app.get('/api/users', (req, res) => {
+    const users = loadUsers().map(user => {
+        const { password, ...safeUser } = user;
+        return safeUser;
+    });
+    res.json({ users });
+});
+
+// Fallback route for static 404
+app.use((req, res) => {
+    res.status(404).json({ error: 'Not found' });
+});
+
+app.listen(port, () => {
     console.log(`StudyHub API running on http://localhost:${port}`);
 });

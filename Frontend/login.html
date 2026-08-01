@@ -40,7 +40,7 @@
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
                 <a class="nav__link nav__link--ghost" href="login.html">Login</a>
-                <a class="nav__link nav__link--ghost" href="signup.html">Sign Up</a>
+                <a class="nav__link nav__link--ghost" href="register.html">Register</a>
             </nav>
         </div>
     </header>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="auth-panel reveal">
-                    <form class="auth-form" action="student-dashboard.html" method="get">
+                    <form class="auth-form" id="login-form" action="student-dashboard.html" method="get">
                         <div class="auth-form__header">
                             <h2>Login</h2>
                             <p>Use your email and password to continue.</p>
@@ -91,8 +91,9 @@
                         </div>
 
                         <button class="button button--primary auth-form__button" type="submit">Sign In</button>
+                        <p class="auth-form__message" id="login-message" aria-live="polite"></p>
 
-                        <p class="auth-form__note">Don't have an account? <a href="signup.html">Create one here</a>.</p>
+                        <p class="auth-form__note">Don't have an account? <a href="register.html">Create one here</a>.</p>
                     </form>
                 </div>
             </div>
@@ -106,5 +107,70 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const loginMessage = document.getElementById('login-message');
+        const apiEndpoints = window.location.protocol === 'file:'
+            ? ['http://localhost:3000/api/login']
+            : ['/api/login', 'http://localhost:3000/api/login'];
+
+        async function loginUser(credentials) {
+            let lastError = null;
+
+            for (const endpoint of apiEndpoints) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(credentials)
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(result.message || 'Invalid email or password.');
+                    }
+
+                    return result;
+                } catch (error) {
+                    lastError = error;
+                }
+            }
+
+            throw lastError || new Error('Invalid email or password.');
+        }
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(loginForm);
+                const credentials = {
+                    email: formData.get('email')?.toString().trim(),
+                    password: formData.get('password')?.toString().trim()
+                };
+
+                loginMessage.textContent = 'Verifying credentials...';
+                loginMessage.className = 'auth-form__message'; // reset custom style class
+                loginMessage.style.color = 'var(--primary)';
+
+                try {
+                    const result = await loginUser(credentials);
+                    loginMessage.textContent = result.message || 'Login successful. Redirecting...';
+                    loginMessage.style.color = '#22c55e'; // Green for success
+                    
+                    if (result.user) {
+                        localStorage.setItem('studyhub_user', JSON.stringify(result.user));
+                    }
+                    
+                    setTimeout(() => {
+                        window.location.href = 'student-dashboard.html';
+                    }, 1000);
+                } catch (error) {
+                    loginMessage.textContent = error.message || 'Invalid email or password.';
+                    loginMessage.style.color = '#ef4444'; // Red for error
+                }
+            });
+        }
+    </script>
 </body>
 </html>

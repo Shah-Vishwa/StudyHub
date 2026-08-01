@@ -40,32 +40,287 @@
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
                 <a class="nav__link nav__link--ghost" href="login.html">Login</a>
-                <a class="nav__link nav__link--ghost" href="signup.html">Sign Up</a>
+                <a class="nav__link nav__link--ghost" href="register.html">Register</a>
             </nav>
         </div>
     </header>
 
     <main>
         <section class="section">
-            <div class="container">
-                <div class="section-heading reveal">
-                    <p class="section-heading__eyebrow">Dashboard</p>
-                    <h1>Welcome to your StudyHub workspace</h1>
-                    <p>Track your learning, review notes, and jump back into your next lesson.</p>
+            <div class="container dashboard-shell">
+                <div class="dashboard-hero reveal">
+                    <div>
+                        <p class="section-heading__eyebrow">Dashboard</p>
+                        <h1>Welcome back, Vishwa</h1>
+                        <p>Your learning streak is strong and your next milestone is just around the corner.</p>
+                        <div class="dashboard-hero__actions">
+                            <a class="button button--primary" href="course.html">Continue learning</a>
+                            <a class="button button--secondary" href="features.html">View study tools</a>
+                        </div>
+                    </div>
+                    <div class="dashboard-hero__stats">
+                        <div class="dashboard-metric">
+                            <span>Current streak</span>
+                            <strong>12 days</strong>
+                        </div>
+                        <div class="dashboard-metric">
+                            <span>Certificates earned</span>
+                            <strong>3</strong>
+                        </div>
+                        <div class="dashboard-metric">
+                            <span>Assignments due</span>
+                            <strong>2</strong>
+                        </div>
+                        <div class="dashboard-metric">
+                            <span>Weekly goal</span>
+                            <strong>82%</strong>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="dashboard-grid">
-                    <article class="dashboard-card reveal">
-                        <h2>Current learning goal</h2>
-                        <p>Complete one course module and review your notes before the next class.</p>
+                    <article class="dashboard-card dashboard-card--wide reveal dashboard-nav-card">
+                        <div class="dashboard-card__header">
+                            <h2>Dashboard Navigation</h2>
+                            <span class="dashboard-tag">Quick access</span>
+                        </div>
+                        <div class="dashboard-nav-links">
+                            <a href="#study-tools">Study Tools</a>
+                            <a href="#my-courses">My Courses</a>
+                            <a href="#resources">Resources</a>
+                            <a href="course.html">Browse All Courses</a>
+                        </div>
                     </article>
-                    <article class="dashboard-card reveal">
-                        <h2>Recent courses</h2>
-                        <p>Linux Administration, Git &amp; GitHub, Networking Fundamentals.</p>
+
+                    <article class="dashboard-card dashboard-card--wide reveal" id="study-tools">
+                        <div class="dashboard-card__header">
+                            <h2>Study Tools</h2>
+                            <span class="dashboard-tag">All-in-one hub</span>
+                        </div>
+                        <div class="study-tools-grid">
+                            <a class="study-tool-card" href="#course-notes">
+                                <strong>Course Notes</strong>
+                                <p>Open course-specific notes and study summaries.</p>
+                            </a>
+                            <a class="study-tool-card" href="dashboard.html">
+                                <strong>Dashboard Overview</strong>
+                                <p>See progress, streaks, and upcoming milestones.</p>
+                            </a>
+                            <a class="study-tool-card" href="register.html">
+                                <strong>Registration &amp; Storage</strong>
+                                <p>Keep your profile, courses, and saved learning state in one place.</p>
+                            </a>
+                            <a class="study-tool-card" href="contact.html">
+                                <strong>LinkedIn Access</strong>
+                                <p>Connect with mentors, instructors, and career opportunities.</p>
+                            </a>
+                        </div>
                     </article>
+
+                    <article class="dashboard-card dashboard-card--wide reveal" id="course-notes">
+                        <div class="dashboard-card__header">
+                            <h2>Course Notes</h2>
+                            <span class="dashboard-tag">Study material</span>
+                        </div>
+                        <div class="notes-grid">
+                            <div class="note-card">
+                                <strong>Linux Bootcamp</strong>
+                                <p>Permissions, troubleshooting, service control, and shell commands.</p>
+                                <a class="dashboard-link" href="course-detail.html?course=linux">Open notes</a>
+                            </div>
+                            <div class="note-card">
+                                <strong>Git &amp; GitHub Essentials</strong>
+                                <p>Branching, pull requests, collaboration, and repository hygiene.</p>
+                                <a class="dashboard-link" href="course-detail.html?course=git">Open notes</a>
+                            </div>
+                            <div class="note-card">
+                                <strong>AWS Cloud Practitioner</strong>
+                                <p>Cloud basics, storage, IAM, and practical AWS concepts.</p>
+                                <a class="dashboard-link" href="course-detail.html?course=aws">Open notes</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card dashboard-card--wide reveal" id="my-courses">
+                        <div class="dashboard-card__header">
+                            <h2>My Courses</h2>
+                            <span class="dashboard-tag">Enrolled</span>
+                        </div>
+                        <div class="dashboard-course-list">
+                            <div class="dashboard-course">
+                                <div class="dashboard-course__row">
+                                    <div>
+                                        <strong>Linux Bootcamp</strong>
+                                        <p class="dashboard-course__meta">Live labs • 12 lessons</p>
+                                    </div>
+                                    <a class="dashboard-link" href="course-detail.html?course=linux">Open</a>
+                                </div>
+                            </div>
+                            <div class="dashboard-course">
+                                <div class="dashboard-course__row">
+                                    <div>
+                                        <strong>Git &amp; GitHub Essentials</strong>
+                                        <p class="dashboard-course__meta">Projects • 8 lessons</p>
+                                    </div>
+                                    <a class="dashboard-link" href="course-detail.html?course=git">Open</a>
+                                </div>
+                            </div>
+                            <div class="dashboard-course">
+                                <div class="dashboard-course__row">
+                                    <div>
+                                        <strong>AWS Cloud Practitioner</strong>
+                                        <p class="dashboard-course__meta">Hands-on • 10 lessons</p>
+                                    </div>
+                                    <a class="dashboard-link" href="course-detail.html?course=aws">Open</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card dashboard-card--wide reveal" id="resources">
+                        <div class="dashboard-card__header">
+                            <h2>Resources</h2>
+                            <span class="dashboard-tag">Notes &amp; files</span>
+                        </div>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <strong>Course notes</strong>
+                                <p>Downloadable references for your active courses.</p>
+                            </div>
+                            <div class="resource-item">
+                                <strong>Assignments</strong>
+                                <p>Track submissions, deadlines, and feedback.</p>
+                            </div>
+                            <div class="resource-item">
+                                <strong>Certificates</strong>
+                                <p>View earned badges and shareable completion proofs.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card dashboard-card--wide reveal">
+                        <div class="dashboard-card__header">
+                            <h2>Continue Learning</h2>
+                            <span class="dashboard-tag">In progress</span>
+                        </div>
+                        <div class="dashboard-course-list">
+                            <div class="dashboard-course">
+                                <div class="dashboard-course__row">
+                                    <div>
+                                        <strong>Linux Bootcamp</strong>
+                                        <p class="dashboard-course__meta">Module 4 • Permissions and troubleshooting</p>
+                                    </div>
+                                    <span>78%</span>
+                                </div>
+                                <div class="dashboard-progress"><span style="width: 78%"></span></div>
+                            </div>
+                            <div class="dashboard-course">
+                                <div class="dashboard-course__row">
+                                    <div>
+                                        <strong>Git &amp; GitHub Essentials</strong>
+                                        <p class="dashboard-course__meta">Module 2 • Pull requests and reviews</p>
+                                    </div>
+                                    <span>54%</span>
+                                </div>
+                                <div class="dashboard-progress"><span style="width: 54%"></span></div>
+                            </div>
+                            <div class="dashboard-course">
+                                <div class="dashboard-course__row">
+                                    <div>
+                                        <strong>AWS Cloud Practitioner</strong>
+                                        <p class="dashboard-course__meta">Module 1 • Cloud concepts and storage</p>
+                                    </div>
+                                    <span>38%</span>
+                                </div>
+                                <div class="dashboard-progress"><span style="width: 38%"></span></div>
+                            </div>
+                        </div>
+                    </article>
+
                     <article class="dashboard-card reveal">
-                        <h2>Quick actions</h2>
-                        <p><a href="course.html">Browse courses</a> • <a href="features.html">Review features</a></p>
+                        <div class="dashboard-card__header">
+                            <h2>Assignments</h2>
+                            <span class="dashboard-tag">Due soon</span>
+                        </div>
+                        <div class="dashboard-task-list">
+                            <div class="dashboard-task">
+                                <div class="dashboard-task__row">
+                                    <strong>Linux lab report</strong>
+                                    <span>Today</span>
+                                </div>
+                            </div>
+                            <div class="dashboard-task">
+                                <div class="dashboard-task__row">
+                                    <strong>Git branching quiz</strong>
+                                    <span>Tomorrow</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card reveal">
+                        <div class="dashboard-card__header">
+                            <h2>Certificates</h2>
+                            <span class="dashboard-tag">Ready to share</span>
+                        </div>
+                        <p class="dashboard-card__subtle">You have completed 3 badges and 1 completion certificate this month.</p>
+                        <div class="dashboard-backend">
+                            <strong>Featured badge</strong>
+                            <p>Cloud Essentials • Earned 2 days ago</p>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card reveal">
+                        <div class="dashboard-card__header">
+                            <h2>Notifications</h2>
+                            <span class="dashboard-tag">3 new</span>
+                        </div>
+                        <div class="dashboard-activity-list">
+                            <div class="dashboard-activity">
+                                <div class="dashboard-activity__row">
+                                    <strong>Instructor feedback</strong>
+                                    <span>Now</span>
+                                </div>
+                                <p class="dashboard-activity__meta">Your Linux lab was reviewed and marked excellent.</p>
+                            </div>
+                            <div class="dashboard-activity">
+                                <div class="dashboard-activity__row">
+                                    <strong>Live session reminder</strong>
+                                    <span>2h</span>
+                                </div>
+                                <p class="dashboard-activity__meta">Join the AWS walkthrough at 6:30 PM.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card dashboard-card--wide reveal">
+                        <div class="dashboard-card__header">
+                            <h2>Recent Activity</h2>
+                            <span class="dashboard-tag">Today</span>
+                        </div>
+                        <div class="dashboard-activity-list">
+                            <div class="dashboard-activity">
+                                <div class="dashboard-activity__row">
+                                    <strong>Completed a lesson</strong>
+                                    <span>09:30</span>
+                                </div>
+                                <p class="dashboard-activity__meta">You finished the Linux permissions module and saved your notes.</p>
+                            </div>
+                            <div class="dashboard-activity">
+                                <div class="dashboard-activity__row">
+                                    <strong>Enrolled in a new course</strong>
+                                    <span>11:15</span>
+                                </div>
+                                <p class="dashboard-activity__meta">AWS Cloud Practitioner was added to your learning plan.</p>
+                            </div>
+                            <div class="dashboard-activity">
+                                <div class="dashboard-activity__row">
+                                    <strong>Shared a certificate</strong>
+                                    <span>13:40</span>
+                                </div>
+                                <p class="dashboard-activity__meta">Your Git collaboration badge was posted to your profile.</p>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </div>
