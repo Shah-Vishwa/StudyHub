@@ -69,12 +69,14 @@
     "firstName": "Mahi",
     "lastName": "Shah",
     "email": "Mahi@gmail.com",
-    "password": "123",
+    "password": "456",
     "role": "Student",
     "createdAt": "2026-08-03T14:49:51.502Z",
-    "profilePicture": "",
-    "bio": "",
-    "phone": "",
-    "skills": []
+    "profilePicture": "http://localhost:3000/settings.html",
+    "bio": "Hieee..",
+    "phone": "987654332",
+    "skills": [
+      "Linux"
+    ]
   }
 ]

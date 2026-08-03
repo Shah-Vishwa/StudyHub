@@ -6,9 +6,10 @@
     const path = window.location.pathname.toLowerCase();
     const isDashboardPage = path.includes('student-dashboard.html') || path.includes('/dashboard.html');
     const isProfilePage = path.includes('profile.html');
+    const isSettingsPage = path.includes('settings.html');
     const isAuthPage = path.includes('login.html') || path.includes('register.html');
 
-    if ((isDashboardPage || isProfilePage) && !user) {
+    if ((isDashboardPage || isProfilePage || isSettingsPage) && !user) {
         window.location.href = 'login.html';
     } else if (isAuthPage && user) {
         window.location.href = getSignedInLandingPage(user);
@@ -562,92 +563,12 @@ function updateDynamicUI() {
             }
         }
 
-        if (settingsForm) {
-            if (settingsFirstName) settingsFirstName.value = loggedInUser.firstName || '';
-            if (settingsLastName) settingsLastName.value = loggedInUser.lastName || '';
-            if (settingsEmail) settingsEmail.value = loggedInUser.email || '';
-            if (settingsPhone) settingsPhone.value = loggedInUser.phone || '';
-            if (settingsPhoto) settingsPhoto.value = loggedInUser.profilePicture || '';
-            if (settingsBio) settingsBio.value = loggedInUser.bio || '';
-            if (settingsSkills) settingsSkills.value = Array.isArray(loggedInUser.skills) ? loggedInUser.skills.join(', ') : '';
-        }
-
         if (profileFocusList) {
             profileFocusList.innerHTML = profileCopy.focusPoints.map((point) => `
                 <div class="dashboard-task">
                     <p class="dashboard-card__subtle">${point}</p>
                 </div>
             `).join('');
-        }
-
-        if (deleteAccountButton) {
-            deleteAccountButton.addEventListener('click', () => {
-                const confirmed = window.confirm('Delete your account from this browser session? This cannot be undone here.');
-
-                if (!confirmed) {
-                    return;
-                }
-
-                localStorage.removeItem('studyhub_user');
-                window.location.href = 'index.html';
-            });
-        }
-
-        if (settingsForm) {
-            settingsForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-
-                if (settingsMessage) {
-                    settingsMessage.textContent = 'Saving settings...';
-                    settingsMessage.style.color = 'var(--primary)';
-                }
-
-                const payload = {
-                    firstName: settingsFirstName ? settingsFirstName.value.trim() : '',
-                    lastName: settingsLastName ? settingsLastName.value.trim() : '',
-                    email: settingsEmail ? settingsEmail.value.trim() : '',
-                    phone: settingsPhone ? settingsPhone.value.trim() : '',
-                    profilePicture: settingsPhoto ? settingsPhoto.value.trim() : '',
-                    bio: settingsBio ? settingsBio.value.trim() : '',
-                    skills: settingsSkills ? settingsSkills.value.trim() : '',
-                    currentPassword: settingsCurrentPassword ? settingsCurrentPassword.value : '',
-                    newPassword: settingsNewPassword ? settingsNewPassword.value : '',
-                    confirmPassword: settingsConfirmPassword ? settingsConfirmPassword.value : ''
-                };
-
-                try {
-                    const endpoint = window.location.protocol === 'file:'
-                        ? `http://localhost:3000/api/users/${loggedInUser.id}/settings`
-                        : `/api/users/${loggedInUser.id}/settings`;
-
-                    const response = await fetch(endpoint, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const result = await response.json();
-
-                    if (!response.ok) {
-                        throw new Error(result.message || 'Unable to save settings.');
-                    }
-
-                    const updatedUser = result.user || { ...loggedInUser, ...payload };
-                    localStorage.setItem('studyhub_user', JSON.stringify(updatedUser));
-
-                    if (settingsMessage) {
-                        settingsMessage.textContent = 'Settings saved successfully.';
-                        settingsMessage.style.color = '#22c55e';
-                    }
-
-                    window.location.reload();
-                } catch (error) {
-                    if (settingsMessage) {
-                        settingsMessage.textContent = error.message || 'Failed to save settings.';
-                        settingsMessage.style.color = '#ef4444';
-                    }
-                }
-            });
         }
 
         if (profileQuickLinks) {
@@ -667,6 +588,88 @@ function updateDynamicUI() {
         }
 
         document.title = `${profileCopy.roleLabel} Profile | StudyHub`;
+    }
+
+    // Independent Settings Form Logic
+    if (settingsForm) {
+        if (settingsFirstName) settingsFirstName.value = loggedInUser.firstName || '';
+        if (settingsLastName) settingsLastName.value = loggedInUser.lastName || '';
+        if (settingsEmail) settingsEmail.value = loggedInUser.email || '';
+        if (settingsPhone) settingsPhone.value = loggedInUser.phone || '';
+        if (settingsPhoto) settingsPhoto.value = loggedInUser.profilePicture || '';
+        if (settingsBio) settingsBio.value = loggedInUser.bio || '';
+        if (settingsSkills) settingsSkills.value = Array.isArray(loggedInUser.skills) ? loggedInUser.skills.join(', ') : '';
+
+        settingsForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (settingsMessage) {
+                settingsMessage.textContent = 'Saving settings...';
+                settingsMessage.style.color = 'var(--primary)';
+            }
+
+            const payload = {
+                firstName: settingsFirstName ? settingsFirstName.value.trim() : '',
+                lastName: settingsLastName ? settingsLastName.value.trim() : '',
+                email: settingsEmail ? settingsEmail.value.trim() : '',
+                phone: settingsPhone ? settingsPhone.value.trim() : '',
+                profilePicture: settingsPhoto ? settingsPhoto.value.trim() : '',
+                bio: settingsBio ? settingsBio.value.trim() : '',
+                skills: settingsSkills ? settingsSkills.value.trim() : '',
+                currentPassword: settingsCurrentPassword ? settingsCurrentPassword.value : '',
+                newPassword: settingsNewPassword ? settingsNewPassword.value : '',
+                confirmPassword: settingsConfirmPassword ? settingsConfirmPassword.value : ''
+            };
+
+            try {
+                const endpoint = window.location.protocol === 'file:'
+                    ? `http://localhost:3000/api/users/${loggedInUser.id}/settings`
+                    : `/api/users/${loggedInUser.id}/settings`;
+
+                const response = await fetch(endpoint, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Unable to save settings.');
+                }
+
+                const updatedUser = result.user || { ...loggedInUser, ...payload };
+                localStorage.setItem('studyhub_user', JSON.stringify(updatedUser));
+
+                if (settingsMessage) {
+                    settingsMessage.textContent = 'Settings saved successfully.';
+                    settingsMessage.style.color = '#22c55e';
+                }
+
+                window.location.reload();
+            } catch (error) {
+                if (settingsMessage) {
+                    settingsMessage.textContent = error.message || 'Failed to save settings.';
+                    settingsMessage.style.color = '#ef4444';
+                }
+            }
+        });
+
+        document.title = `${profileCopy.roleLabel} Settings | StudyHub`;
+    }
+
+    // Independent Delete Account Logic
+    if (deleteAccountButton) {
+        deleteAccountButton.addEventListener('click', () => {
+            const confirmed = window.confirm('Delete your account from this browser session? This cannot be undone here.');
+
+            if (!confirmed) {
+                return;
+            }
+
+            localStorage.removeItem('studyhub_user');
+            window.location.href = 'index.html';
+        });
     }
 }
 

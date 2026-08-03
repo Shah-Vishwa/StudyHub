@@ -152,65 +152,6 @@
                         </div>
                     </article>
 
-                    <article class="dashboard-card dashboard-card--wide reveal">
-                        <div class="dashboard-card__header">
-                            <h2>Security and Settings</h2>
-                            <span class="dashboard-tag">Account safe</span>
-                        </div>
-
-                        <form class="profile-settings-form" id="profile-settings-form">
-                            <div class="profile-settings-grid">
-                                <label>
-                                    <span>First name</span>
-                                    <input type="text" name="firstName" id="settings-first-name" required>
-                                </label>
-                                <label>
-                                    <span>Last name</span>
-                                    <input type="text" name="lastName" id="settings-last-name" required>
-                                </label>
-                                <label>
-                                    <span>Email</span>
-                                    <input type="email" name="email" id="settings-email" required>
-                                </label>
-                                <label>
-                                    <span>Phone</span>
-                                    <input type="tel" name="phone" id="settings-phone" placeholder="+1 555 000 0000">
-                                </label>
-                                <label class="profile-settings-form__wide">
-                                    <span>Profile photo URL</span>
-                                    <input type="url" name="profilePicture" id="settings-photo" placeholder="https://...">
-                                </label>
-                                <label class="profile-settings-form__wide">
-                                    <span>Bio</span>
-                                    <textarea name="bio" id="settings-bio" rows="3" placeholder="Write a short bio..."></textarea>
-                                </label>
-                                <label class="profile-settings-form__wide">
-                                    <span>Skills</span>
-                                    <input type="text" name="skills" id="settings-skills" placeholder="Linux, Git, AWS">
-                                </label>
-                            </div>
-
-                            <div class="profile-settings-passwords">
-                                <label>
-                                    <span>Current password</span>
-                                    <input type="password" name="currentPassword" id="settings-current-password" placeholder="Enter current password">
-                                </label>
-                                <label>
-                                    <span>New password</span>
-                                    <input type="password" name="newPassword" id="settings-new-password" placeholder="Enter new password">
-                                </label>
-                                <label>
-                                    <span>Confirm new password</span>
-                                    <input type="password" name="confirmPassword" id="settings-confirm-password" placeholder="Confirm new password">
-                                </label>
-                            </div>
-
-                            <div class="profile-settings-actions">
-                                <button class="button button--primary profile-section__button" type="submit">Save settings</button>
-                                <p class="profile-settings-message" id="profile-settings-message" aria-live="polite"></p>
-                            </div>
-                        </form>
-                    </article>
                 </div>
 
                 <section class="profile-section reveal" aria-labelledby="my-courses-heading">
@@ -338,11 +279,11 @@
                                 <span class="dashboard-tag">Manage</span>
                             </div>
                             <ul class="profile-section-list profile-section-list--actions">
-                                <li><a href="#profile-settings-form">Edit profile details</a></li>
-                                <li><a href="#profile-settings-form">Change password</a></li>
-                                <li><a href="#profile-settings-form">Update notification preferences</a></li>
+                                <li><a href="settings.html">Edit profile details</a></li>
+                                <li><a href="settings.html">Change password</a></li>
+                                <li><a href="settings.html">Update notification preferences</a></li>
                             </ul>
-                            <button class="button button--secondary profile-section__button" type="button" onclick="document.getElementById('profile-settings-form').scrollIntoView({ behavior: 'smooth', block: 'start' });">Open settings</button>
+                            <button class="button button--secondary profile-section__button" type="button" onclick="window.location.href='settings.html'">Open settings</button>
                         </article>
 
                         <article class="profile-section-card profile-section-card--danger">
