@@ -53,6 +53,12 @@
                     <h1>Log in to your StudyHub account</h1>
                     <p>Continue where you left off and access your learning dashboard, notes, assignments, and progress tracker.</p>
 
+                    <div class="auth-role-pills" aria-label="Sign in options">
+                        <span>Student</span>
+                        <span>Teacher</span>
+                        <span>Administrator</span>
+                    </div>
+
                     <div class="auth-highlights">
                         <div>
                             <strong>Secure access</strong>
@@ -60,16 +66,20 @@
                         </div>
                         <div>
                             <strong>Fast dashboard</strong>
-                            <span>Jump straight into your courses after sign in</span>
+                            <span>Jump straight into your role-specific profile after sign in</span>
+                        </div>
+                        <div>
+                            <strong>One account</strong>
+                            <span>Your profile, courses, and saved state stay in one place</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="auth-panel reveal">
-                    <form class="auth-form" id="login-form" action="student-dashboard.html" method="get">
+                <div class="auth-panel auth-panel--login reveal">
+                    <form class="auth-form" id="login-form" action="profile.html" method="get">
                         <div class="auth-form__header">
                             <h2>Login</h2>
-                            <p>Use your email and password to continue.</p>
+                            <p>Use your email and password to continue, then we’ll take you to your profile.</p>
                         </div>
 
                         <label>
@@ -79,7 +89,10 @@
 
                         <label>
                             <span>Password</span>
-                            <input type="password" name="password" placeholder="Enter your password" required>
+                            <div class="auth-password">
+                                <input id="login-password" type="password" name="password" placeholder="Enter your password" required>
+                                <button class="auth-password__toggle" id="login-password-toggle" type="button" aria-controls="login-password" aria-pressed="false">Show</button>
+                            </div>
                         </label>
 
                         <div class="auth-form__row">
@@ -110,6 +123,8 @@
     <script>
         const loginForm = document.getElementById('login-form');
         const loginMessage = document.getElementById('login-message');
+        const loginPassword = document.getElementById('login-password');
+        const loginPasswordToggle = document.getElementById('login-password-toggle');
         const apiEndpoints = window.location.protocol === 'file:'
             ? ['http://localhost:3000/api/login']
             : ['/api/login', 'http://localhost:3000/api/login'];
@@ -163,12 +178,21 @@
                     }
                     
                     setTimeout(() => {
-                        window.location.href = 'student-dashboard.html';
+                        window.location.href = window.getSignedInLandingPage(result.user);
                     }, 1000);
                 } catch (error) {
                     loginMessage.textContent = error.message || 'Invalid email or password.';
                     loginMessage.style.color = '#ef4444'; // Red for error
                 }
+            });
+        }
+
+        if (loginPassword && loginPasswordToggle) {
+            loginPasswordToggle.addEventListener('click', () => {
+                const isHidden = loginPassword.type === 'password';
+                loginPassword.type = isHidden ? 'text' : 'password';
+                loginPasswordToggle.textContent = isHidden ? 'Hide' : 'Show';
+                loginPasswordToggle.setAttribute('aria-pressed', String(isHidden));
             });
         }
     </script>

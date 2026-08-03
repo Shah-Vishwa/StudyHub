@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static frontend files
 app.use(express.static(frontendDir));
+app.use('/assets', express.static(path.join(__dirname, '..', 'Assets')));
 
 const dashboardData = {
     student: 'Vishwa Shah',
@@ -56,6 +57,40 @@ function loadUsers() {
 
 function saveUsers(users) {
     fs.writeFileSync(databaseFile, JSON.stringify(users, null, 2));
+}
+
+function normalizeSkills(skills) {
+    if (Array.isArray(skills)) {
+        return skills.map((skill) => String(skill).trim()).filter(Boolean);
+    }
+
+    if (typeof skills === 'string') {
+        return skills
+            .split(',')
+            .map((skill) => skill.trim())
+            .filter(Boolean);
+    }
+
+    return [];
+}
+
+function buildSafeUser(user) {
+    return {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+        profilePicture: user.profilePicture || '',
+        bio: user.bio || '',
+        phone: user.phone || '',
+        skills: Array.isArray(user.skills) ? user.skills : []
+    };
+}
+
+function findUserIndexById(users, id) {
+    return users.findIndex((user) => user.id === id);
 }
 
 // GET /api/health
@@ -90,7 +125,11 @@ app.post('/api/register', (req, res) => {
             email: user.email,
             password: user.password, // In production, hash passwords (e.g. with bcrypt)
             role: user.role,
-            createdAt: user.createdAt || new Date().toISOString()
+            createdAt: user.createdAt || new Date().toISOString(),
+            profilePicture: user.profilePicture || '',
+            bio: user.bio || '',
+            phone: user.phone || '',
+            skills: normalizeSkills(user.skills)
         };
 
         users.push(newUser);
@@ -119,14 +158,7 @@ app.post('/api/login', (req, res) => {
         }
 
         // Return user details without password for security
-        const safeUser = {
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            role: user.role,
-            createdAt: user.createdAt
-        };
+        const safeUser = buildSafeUser(user);
 
         res.json({ message: 'Login successful.', user: safeUser });
     } catch (error) {
@@ -134,11 +166,74 @@ app.post('/api/login', (req, res) => {
     }
 });
 
+// PUT /api/users/:id/settings
+app.put('/api/users/:id/settings', (req, res) => {
+    try {
+        const { id } = req.params;
+        const {
+            firstName,
+            lastName,
+            email,
+            phone,
+            bio,
+            profilePicture,
+            skills,
+            currentPassword,
+            newPassword,
+            confirmPassword
+        } = req.body;
+
+        const users = loadUsers();
+        const userIndex = findUserIndexById(users, id);
+
+        if (userIndex === -1) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        const user = users[userIndex];
+
+        if (email && users.some((entry) => entry.id !== id && entry.email.toLowerCase() === email.toLowerCase())) {
+            return res.status(409).json({ message: 'An account with this email already exists.' });
+        }
+
+        if (newPassword || confirmPassword || currentPassword) {
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                return res.status(400).json({ message: 'Please complete all password fields.' });
+            }
+
+            if (user.password !== currentPassword) {
+                return res.status(401).json({ message: 'Current password is incorrect.' });
+            }
+
+            if (newPassword !== confirmPassword) {
+                return res.status(400).json({ message: 'New password and confirmation do not match.' });
+            }
+
+            user.password = newPassword;
+        }
+
+        if (firstName) user.firstName = firstName.trim();
+        if (lastName) user.lastName = lastName.trim();
+        if (email) user.email = email.trim();
+        if (phone !== undefined) user.phone = phone.trim();
+        if (bio !== undefined) user.bio = bio.trim();
+        if (profilePicture !== undefined) user.profilePicture = profilePicture.trim();
+        if (skills !== undefined) user.skills = normalizeSkills(skills);
+
+        users[userIndex] = user;
+        saveUsers(users);
+
+        res.json({ message: 'Settings updated successfully.', user: buildSafeUser(user) });
+    } catch (error) {
+        res.status(400).json({ message: 'Invalid request body.' });
+    }
+});
+
 // GET /api/users (Debug helper)
 app.get('/api/users', (req, res) => {
     const users = loadUsers().map(user => {
         const { password, ...safeUser } = user;
-        return safeUser;
+        return buildSafeUser(safeUser);
     });
     res.json({ users });
 });

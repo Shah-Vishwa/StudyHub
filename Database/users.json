@@ -6,7 +6,11 @@
     "email": "test@example.com",
     "password": "secret123",
     "role": "Student",
-    "createdAt": "2026-07-30T11:59:19.148Z"
+    "createdAt": "2026-07-30T11:59:19.148Z",
+    "profilePicture": "",
+    "bio": "",
+    "phone": "",
+    "skills": []
   },
   {
     "id": "msaiuf3n",
@@ -15,7 +19,11 @@
     "email": "test+280d01a8ede7449f851b47c037b0ee12@example.com",
     "password": "secret123",
     "role": "Student",
-    "createdAt": "2026-08-01T20:53:49.5787677+05:30"
+    "createdAt": "2026-08-01T20:53:49.5787677+05:30",
+    "profilePicture": "",
+    "bio": "",
+    "phone": "",
+    "skills": []
   },
   {
     "id": "msak5la9",
@@ -24,7 +32,11 @@
     "email": "john@example.com",
     "password": "password123",
     "role": "Student",
-    "createdAt": "2026-08-01T16:00:30.465Z"
+    "createdAt": "2026-08-01T16:00:30.465Z",
+    "profilePicture": "",
+    "bio": "",
+    "phone": "",
+    "skills": []
   },
   {
     "id": "msak9del",
@@ -33,6 +45,36 @@
     "email": "vishwashah713@gmail.com",
     "password": "123",
     "role": "Student",
-    "createdAt": "2026-08-01T16:03:26.778Z"
+    "createdAt": "2026-08-01T16:03:26.778Z",
+    "profilePicture": "",
+    "bio": "",
+    "phone": "",
+    "skills": []
+  },
+  {
+    "id": "msakwi36",
+    "firstName": "Vishu",
+    "lastName": "Shah",
+    "email": "vishu713@gmail.com",
+    "password": "123",
+    "role": "Student",
+    "createdAt": "2026-08-01T16:21:26.028Z",
+    "profilePicture": "",
+    "bio": "",
+    "phone": "",
+    "skills": []
+  },
+  {
+    "id": "msdciftc",
+    "firstName": "Mahi",
+    "lastName": "Shah",
+    "email": "Mahi@gmail.com",
+    "password": "123",
+    "role": "Student",
+    "createdAt": "2026-08-03T14:49:51.502Z",
+    "profilePicture": "",
+    "bio": "",
+    "phone": "",
+    "skills": []
   }
 ]

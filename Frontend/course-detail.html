@@ -50,7 +50,9 @@
             <div class="container course-shell">
                 <div class="page-hero reveal">
                     <div class="page-hero__top">
-                        <div class="page-hero__image" id="course-image" aria-hidden="true"></div>
+                        <div class="page-hero__image" id="course-image" aria-hidden="true">
+                            <img id="course-image-media" alt="" hidden>
+                        </div>
                         <div class="page-hero__content">
                             <p class="section-heading__eyebrow">Course detail</p>
                             <h1 id="course-title">Course Notes</h1>
@@ -67,6 +69,21 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="course-art-gallery reveal" aria-label="Course artwork gallery">
+                    <article class="course-art-card">
+                        <img src="/assets/linux-course.svg" alt="Linux course artwork">
+                        <strong>Linux</strong>
+                    </article>
+                    <article class="course-art-card">
+                        <img src="/assets/github-course.svg" alt="GitHub course artwork">
+                        <strong>GitHub</strong>
+                    </article>
+                    <article class="course-art-card">
+                        <img src="/assets/aws-course.svg" alt="AWS course artwork">
+                        <strong>AWS</strong>
+                    </article>
                 </div>
 
                 <div class="content-grid">
@@ -116,6 +133,8 @@
             linux: {
                 title: 'Linux Administration Bootcamp',
                 description: 'Focus on user management, permissions, shell commands, and server maintenance.',
+                imageSrc: '/assets/linux-course.svg',
+                imageAlt: 'Linux course artwork',
                 objectives: ['Manage users and groups', 'Work with permissions and ownership', 'Troubleshoot common Linux issues'],
                 notes: [
                     { heading: 'File permissions', body: 'Remember that read, write, and execute map to the owner, group, and others. Practice chmod and chown until they feel natural.' },
@@ -143,6 +162,8 @@
             git: {
                 title: 'Git & GitHub Essentials',
                 description: 'Understand branching, commits, pull requests, and collaboration workflows.',
+                imageSrc: '/assets/github-course.svg',
+                imageAlt: 'GitHub course artwork',
                 objectives: ['Create branches cleanly', 'Write helpful commit messages', 'Review pull requests with confidence'],
                 notes: [
                     { heading: 'Branching', body: 'Create short-lived branches for every feature or bug fix so your main branch stays stable.' },
@@ -168,6 +189,7 @@
             networking: {
                 title: 'Networking Fundamentals',
                 description: 'Learn the basics of IP addressing, routing, and troubleshooting network issues.',
+                imageAlt: 'Networking course artwork',
                 objectives: ['Understand TCP/IP basics', 'Troubleshoot connectivity', 'Recognize common network services'],
                 notes: [
                     { heading: 'IP addressing', body: 'Practice distinguishing private and public IP ranges and how subnet masks define network boundaries.' },
@@ -192,6 +214,8 @@
             aws: {
                 title: 'AWS Cloud Practitioner',
                 description: 'Build confidence around cloud concepts, storage, compute, and shared responsibility.',
+                imageSrc: '/assets/aws-course.svg',
+                imageAlt: 'AWS course artwork',
                 objectives: ['Describe core AWS services', 'Compare compute and storage options', 'Understand security and billing basics'],
                 notes: [
                     { heading: 'Shared responsibility', body: 'AWS handles the infrastructure security while customers remain responsible for data and application-level security.' },
@@ -218,9 +242,22 @@
             const params = new URLSearchParams(window.location.search);
             const slug = params.get('course') || 'linux';
             const course = courseData[slug] || courseData.linux;
+            const courseImage = document.getElementById('course-image-media');
 
             document.getElementById('course-title').textContent = course.title;
             document.getElementById('course-description').textContent = course.description;
+
+            if (courseImage) {
+                if (course.imageSrc) {
+                    courseImage.src = course.imageSrc;
+                    courseImage.alt = course.imageAlt || course.title;
+                    courseImage.hidden = false;
+                } else {
+                    courseImage.removeAttribute('src');
+                    courseImage.alt = '';
+                    courseImage.hidden = true;
+                }
+            }
 
             const objectiveList = document.getElementById('course-objectives');
             objectiveList.innerHTML = course.objectives.map((item) => `<li>${item}</li>`).join('');

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Linux course artwork">
+  <rect width="512" height="512" fill="none"/>
+  <ellipse cx="256" cy="234" rx="122" ry="165" fill="#1f1f1f"/>
+  <ellipse cx="256" cy="266" rx="82" ry="118" fill="#f8fafc"/>
+  <ellipse cx="214" cy="218" rx="25" ry="36" fill="#ffffff"/>
+  <ellipse cx="298" cy="218" rx="25" ry="36" fill="#ffffff"/>
+  <ellipse cx="214" cy="225" rx="10" ry="18" fill="#111827"/>
+  <ellipse cx="298" cy="225" rx="10" ry="18" fill="#111827"/>
+  <path d="M207 157c16-18 38-29 49-29 11 0 33 11 49 29" fill="none" stroke="#1f1f1f" stroke-width="18" stroke-linecap="round"/>
+  <path d="M164 354c-20 20-28 48-16 69 9 15 28 19 44 12l49-22c19-8 24-34 10-48l-47-49c-13-13-34-9-40 12z" fill="#facc15" stroke="#1f1f1f" stroke-width="10"/>
+  <path d="M348 354c20 20 28 48 16 69-9 15-28 19-44 12l-49-22c-19-8-24-34-10-48l47-49c13-13 34-9 40 12z" fill="#facc15" stroke="#1f1f1f" stroke-width="10"/>
+  <path d="M256 206c-24 0-43 11-43 25 0 14 19 25 43 25s43-11 43-25c0-14-19-25-43-25z" fill="#facc15" stroke="#1f1f1f" stroke-width="9"/>
+  <path d="M239 219l-15-10" stroke="#1f1f1f" stroke-width="7" stroke-linecap="round"/>
+  <path d="M273 219l15-10" stroke="#1f1f1f" stroke-width="7" stroke-linecap="round"/>
+  <path d="M256 224c9 0 15 3 20 8" stroke="#1f1f1f" stroke-width="5" stroke-linecap="round"/>
+</svg>

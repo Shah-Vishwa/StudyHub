@@ -1025,6 +1025,18 @@ button {
     background: linear-gradient(135deg, #1d4ed8, #0f766e);
 }
 
+.course-card__art--linux {
+    background: linear-gradient(135deg, #111827, #374151);
+}
+
+.course-card__art--github {
+    background: linear-gradient(135deg, #0f172a, #111111);
+}
+
+.course-card__art--aws {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+}
+
 .course-card__art--security {
     background: linear-gradient(135deg, #2563eb, #0ea5e9);
 }
@@ -1045,6 +1057,16 @@ button {
     font-size: 3.2rem;
     color: rgba(255, 255, 255, 0.92);
     text-shadow: 0 12px 24px rgba(15, 23, 42, 0.24);
+}
+
+.course-card__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 1.2rem;
+    display: block;
 }
 
 .course-card__description {
@@ -1365,6 +1387,9 @@ button {
 
 .auth-page {
     padding-top: 4.5rem;
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.08), transparent 24%);
 }
 
 .auth-grid {
@@ -1431,6 +1456,31 @@ button {
     font-size: 0.92rem;
 }
 
+.auth-role-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0.4rem 0 0.2rem;
+}
+
+.auth-role-pills span {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(37, 99, 235, 0.14);
+    background: rgba(37, 99, 235, 0.06);
+    color: var(--primary);
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.auth-panel--login {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95)),
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.08), transparent 25%);
+}
+
 .auth-form {
     display: grid;
     gap: 1rem;
@@ -1475,6 +1525,37 @@ button {
 .auth-form select:focus {
     border-color: rgba(37, 99, 235, 0.45);
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.auth-password {
+    position: relative;
+}
+
+.auth-password input {
+    padding-right: 5.4rem;
+}
+
+.auth-password__toggle {
+    position: absolute;
+    right: 0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 999px;
+    padding: 0.45rem 0.75rem;
+    background: rgba(37, 99, 235, 0.08);
+    color: var(--primary);
+    font: inherit;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.auth-password__toggle:hover,
+.auth-password__toggle:focus-visible {
+    background: rgba(37, 99, 235, 0.14);
+    transform: translateY(-50%) scale(1.03);
 }
 
 .auth-form__row {
@@ -1555,6 +1636,65 @@ button {
     box-shadow: var(--shadow);
 }
 
+.profile-summary-panel {
+    display: grid;
+    gap: 1rem;
+}
+
+.profile-photo-card {
+    display: grid;
+    gap: 0.9rem;
+    padding: 1rem;
+    border-radius: 1.4rem;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+}
+
+.profile-photo-frame {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at top, rgba(37, 99, 235, 0.22), transparent 38%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.98));
+    border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.profile-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-photo-fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.profile-photo-copy strong {
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.profile-photo-copy p {
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
 .dashboard-hero h1 {
     font-size: clamp(2.2rem, 4vw, 3.6rem);
     line-height: 1.05;
@@ -1597,6 +1737,163 @@ button {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 1.4rem;
+}
+
+.profile-section {
+    display: grid;
+    gap: 1rem;
+}
+
+.profile-section__header {
+    margin-bottom: 0.2rem;
+}
+
+.profile-section__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.profile-section-card {
+    padding: 1.2rem;
+    border-radius: 1.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 0.9rem;
+}
+
+.profile-section-card h3 {
+    font-size: 1.05rem;
+}
+
+.profile-section-list {
+    display: grid;
+    gap: 0.65rem;
+    color: var(--muted);
+    padding-left: 1.1rem;
+}
+
+.profile-section-list--actions {
+    padding-left: 0;
+    list-style: none;
+}
+
+.profile-section-list--actions a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.profile-progress {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.profile-progress__track {
+    width: 100%;
+    height: 0.9rem;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.18);
+    overflow: hidden;
+}
+
+.profile-progress__fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.profile-progress__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.profile-section__button,
+.profile-section__danger-button {
+    width: 100%;
+}
+
+.profile-section-card--danger {
+    border-color: rgba(239, 68, 68, 0.22);
+}
+
+.profile-section-card--danger p {
+    color: var(--muted);
+}
+
+.profile-section__danger-button {
+    color: #fff;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    box-shadow: 0 16px 30px rgba(239, 68, 68, 0.22);
+}
+
+.profile-settings-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.profile-settings-grid,
+.profile-settings-passwords {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.profile-settings-passwords {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.profile-settings-grid label,
+.profile-settings-passwords label {
+    display: grid;
+    gap: 0.45rem;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.profile-settings-grid span,
+.profile-settings-passwords span {
+    font-size: 0.92rem;
+}
+
+.profile-settings-grid input,
+.profile-settings-grid textarea,
+.profile-settings-passwords input {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    background: var(--surface-strong);
+    color: var(--text);
+    outline: none;
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
+}
+
+.profile-settings-grid input:focus,
+.profile-settings-grid textarea:focus,
+.profile-settings-passwords input:focus {
+    border-color: rgba(37, 99, 235, 0.45);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.profile-settings-form__wide {
+    grid-column: 1 / -1;
+}
+
+.profile-settings-actions {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.profile-settings-message {
+    min-height: 1.2rem;
+    color: var(--muted);
+    font-size: 0.92rem;
 }
 
 .study-tools-grid {
@@ -1831,7 +2128,16 @@ button {
     place-items: center;
     color: #fff;
     font-size: 4rem;
+    overflow: hidden;
     box-shadow: inset 0 -10px 30px rgba(15, 23, 42, 0.18);
+}
+
+.page-hero__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 1rem;
+    display: block;
 }
 
 .page-hero__content {
@@ -1844,6 +2150,35 @@ button {
     flex-wrap: wrap;
     gap: 0.8rem;
     margin-top: 0.8rem;
+}
+
+.course-art-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.course-art-card {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 1.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.course-art-card img {
+    width: 100%;
+    height: 12rem;
+    object-fit: contain;
+    display: block;
+}
+
+.course-art-card strong {
+    text-align: center;
+    color: var(--text);
 }
 
 .detail-meta {
@@ -1991,6 +2326,10 @@ button {
     .content-grid {
         grid-template-columns: 1fr;
     }
+
+    .course-art-gallery {
+        grid-template-columns: 1fr;
+    }
 }
 
 .course-shell {
@@ -2098,6 +2437,19 @@ button {
         grid-template-columns: 1fr;
     }
 
+    .profile-summary-panel {
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        align-items: start;
+    }
+
+    .profile-section__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .profile-settings-passwords {
+        grid-template-columns: 1fr;
+    }
+
     .dashboard-card,
     .dashboard-card--wide {
         grid-column: span 2;
@@ -2162,6 +2514,18 @@ button {
     }
 
     .dashboard-hero__stats {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-summary-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-section__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-settings-grid {
         grid-template-columns: 1fr;
     }
 
@@ -2260,6 +2624,10 @@ button {
 
     .auth-form__row {
         gap: 0.75rem;
+    }
+
+    .auth-password input {
+        padding-right: 4.75rem;
     }
 
     .auth-page {

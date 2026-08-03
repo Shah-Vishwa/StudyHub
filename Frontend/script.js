@@ -2,17 +2,123 @@
 
 // Route guards - run immediately to prevent flashing of unauthorized pages
 (function runRouteGuards() {
-    const userString = localStorage.getItem('studyhub_user');
+    const user = getStoredUser();
     const path = window.location.pathname.toLowerCase();
     const isDashboardPage = path.includes('student-dashboard.html') || path.includes('/dashboard.html');
+    const isProfilePage = path.includes('profile.html');
     const isAuthPage = path.includes('login.html') || path.includes('register.html');
 
-    if (isDashboardPage && !userString) {
+    if ((isDashboardPage || isProfilePage) && !user) {
         window.location.href = 'login.html';
-    } else if (isAuthPage && userString) {
-        window.location.href = 'student-dashboard.html';
+    } else if (isAuthPage && user) {
+        window.location.href = getSignedInLandingPage(user);
     }
 })();
+
+function getStoredUser() {
+    const userString = localStorage.getItem('studyhub_user');
+
+    if (!userString) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(userString);
+    } catch (error) {
+        localStorage.removeItem('studyhub_user');
+        return null;
+    }
+}
+
+function normalizeRole(role) {
+    return (role || 'student').toString().trim().toLowerCase();
+}
+
+function getProfileCopy(role) {
+    const profileCopies = {
+        student: {
+            eyebrow: 'Student profile',
+            roleLabel: 'Student',
+            summary: 'Track your courses, assignments, and study goals from one account.',
+            focusLabel: 'Learning focus',
+            focusPoints: [
+                'Review your next lesson and upcoming assignment deadlines.',
+                'Keep an eye on certificates and course completion progress.',
+                'Jump straight back into your active courses from the dashboard.'
+            ],
+            quickLinks: [
+                { label: 'Open student dashboard', href: 'student-dashboard.html' },
+                { label: 'Browse courses', href: 'course.html' },
+                { label: 'Contact support', href: 'contact.html' }
+            ],
+            primaryAction: { label: 'Open dashboard', href: 'student-dashboard.html' },
+            secondaryAction: { label: 'Browse courses', href: 'course.html' },
+            status: 'Active'
+        },
+        teacher: {
+            eyebrow: 'Teacher profile',
+            roleLabel: 'Teacher',
+            summary: 'Manage class content, review student progress, and keep sessions organized.',
+            focusLabel: 'Teaching focus',
+            focusPoints: [
+                'Review course materials and plan the next session.',
+                'Check feedback, submissions, and student progress updates.',
+                'Prepare announcements and learning resources for your classes.'
+            ],
+            quickLinks: [
+                { label: 'Open dashboard', href: 'dashboard.html' },
+                { label: 'Review courses', href: 'course.html' },
+                { label: 'Contact support', href: 'contact.html' }
+            ],
+            primaryAction: { label: 'Open dashboard', href: 'dashboard.html' },
+            secondaryAction: { label: 'Review courses', href: 'course.html' },
+            status: 'Active'
+        },
+        administrator: {
+            eyebrow: 'Administrator profile',
+            roleLabel: 'Administrator',
+            summary: 'Oversee accounts, platform activity, and content operations from one profile.',
+            focusLabel: 'Administration focus',
+            focusPoints: [
+                'Monitor account activity and platform usage trends.',
+                'Review content updates and support requests as they arrive.',
+                'Use the dashboard to keep platform operations moving smoothly.'
+            ],
+            quickLinks: [
+                { label: 'Open dashboard', href: 'dashboard.html' },
+                { label: 'View site pages', href: 'index.html' },
+                { label: 'Contact support', href: 'contact.html' }
+            ],
+            primaryAction: { label: 'Open dashboard', href: 'dashboard.html' },
+            secondaryAction: { label: 'View site pages', href: 'index.html' },
+            status: 'Active'
+        }
+    };
+
+    return profileCopies[normalizeRole(role)] || profileCopies.student;
+}
+
+function formatMemberSince(createdAt) {
+    if (!createdAt) {
+        return 'Recently';
+    }
+
+    const parsedDate = new Date(createdAt);
+
+    if (Number.isNaN(parsedDate.getTime())) {
+        return 'Recently';
+    }
+
+    return new Intl.DateTimeFormat('en', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    }).format(parsedDate);
+}
+
+function getSignedInLandingPage() {
+    return 'profile.html';
+}
 
 const courseCatalog = [
     {
@@ -24,8 +130,8 @@ const courseCatalog = [
         level: 'Beginner',
         rating: '4.9',
         price: '$69',
-        emoji: '🐧',
-        imageClass: 'course-card__art--devops',
+        imageSrc: '/assets/linux-course.svg',
+        imageClass: 'course-card__art--linux',
         description: 'Build confidence managing servers, packages, permissions, and services.',
         fullDescription: 'This hands-on course walks you through real Linux administration tasks, including package management, file permissions, service troubleshooting, and everyday command-line workflows.',
         curriculum: ['Command line essentials', 'Users, groups, and permissions', 'Service management and troubleshooting', 'Server hardening basics'],
@@ -45,8 +151,8 @@ const courseCatalog = [
         level: 'Intermediate',
         rating: '4.8',
         price: '$49',
-        emoji: '🔀',
-        imageClass: 'course-card__art--web',
+        imageSrc: '/assets/github-course.svg',
+        imageClass: 'course-card__art--github',
         description: 'Master branching, commits, pull requests, and collaboration workflows with confidence.',
         fullDescription: 'Learn the Git habits that make team collaboration smoother, including branching strategies, commit history reviews, and pull request etiquette.',
         curriculum: ['Version control fundamentals', 'Branching and merging', 'GitHub collaboration', 'Reviewing pull requests'],
@@ -87,8 +193,8 @@ const courseCatalog = [
         level: 'Beginner',
         rating: '5.0',
         price: '$79',
-        emoji: '☁️',
-        imageClass: 'course-card__art--cloud',
+        imageSrc: '/assets/aws-course.svg',
+        imageClass: 'course-card__art--aws',
         description: 'Strengthen your understanding of cloud concepts, AWS services, security, and budgeting.',
         fullDescription: 'Explore the core building blocks of AWS, from compute and storage to security, IAM, and billing basics that matter in practical cloud projects.',
         curriculum: ['Core cloud concepts', 'Compute and storage choices', 'Security and IAM basics', 'Cost awareness and monitoring'],
@@ -121,7 +227,7 @@ function renderCourseCards() {
     container.innerHTML = courseCatalog.map((course) => `
         <article class="course-card reveal" data-course="${course.id}" data-search="${[course.title, course.category, course.instructor, course.duration, course.level, course.rating, course.price, course.description].join(' ').toLowerCase()}">
             <div class="course-card__art ${course.imageClass}" aria-hidden="true">
-                <span class="course-card__emoji">${course.emoji}</span>
+                ${course.imageSrc ? `<img class="course-card__image" src="${course.imageSrc}" alt="">` : `<span class="course-card__emoji">${course.emoji}</span>`}
             </div>
             <div class="course-card__body">
                 <div class="course-card__meta">
@@ -281,52 +387,286 @@ if (themeToggle) {
 }
 
 function updateDynamicUI() {
-    const userString = localStorage.getItem('studyhub_user');
-    if (!userString) return;
+    const loggedInUser = getStoredUser();
 
-    let loggedInUser = null;
-    try {
-        loggedInUser = JSON.parse(userString);
-    } catch (e) {
-        localStorage.removeItem('studyhub_user');
+    if (!loggedInUser) {
         return;
     }
 
-    // 1. Dynamic navbar
+    const profileCopy = getProfileCopy(loggedInUser.role);
+
     const nav = document.getElementById('primary-navigation');
     if (nav) {
-        // Find and remove Login and Register links
-        const authLinks = Array.from(nav.querySelectorAll('a')).filter(link => {
+        const authLinks = Array.from(nav.querySelectorAll('a')).filter((link) => {
             const href = link.getAttribute('href') || '';
             return href.includes('login.html') || href.includes('register.html') || href.includes('signup.html');
         });
-        authLinks.forEach(link => link.remove());
+        authLinks.forEach((link) => link.remove());
 
-        // Add greeting & logout button
+        const dashboardLink = Array.from(nav.querySelectorAll('a')).find((link) => {
+            const href = link.getAttribute('href') || '';
+            return href.includes('student-dashboard.html') || href.includes('dashboard.html');
+        });
+        if (dashboardLink) {
+            dashboardLink.href = profileCopy.primaryAction.href;
+        }
+
         const greeting = document.createElement('span');
         greeting.className = 'nav__user-greeting';
         greeting.textContent = `Hi, ${loggedInUser.firstName}`;
-        
+
+        const profileLink = document.createElement('a');
+        profileLink.className = 'nav__link nav__link--ghost';
+        profileLink.href = 'profile.html';
+        profileLink.textContent = 'Profile';
+
         const logoutBtn = document.createElement('a');
         logoutBtn.className = 'nav__link nav__link--ghost';
         logoutBtn.id = 'logout-btn';
         logoutBtn.href = '#';
         logoutBtn.textContent = 'Logout';
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+        logoutBtn.addEventListener('click', (event) => {
+            event.preventDefault();
             localStorage.removeItem('studyhub_user');
             window.location.href = 'index.html';
         });
 
-        // Insert greeting and logout buttons into nav
         nav.appendChild(greeting);
+        nav.appendChild(profileLink);
         nav.appendChild(logoutBtn);
     }
 
-    // 2. Personalize dashboard welcome header
     const welcomeHeading = document.querySelector('.dashboard-hero h1');
     if (welcomeHeading) {
         welcomeHeading.textContent = `Welcome back, ${loggedInUser.firstName}`;
+    }
+
+    const profileHeading = document.getElementById('profile-heading');
+    const profileSummary = document.getElementById('profile-summary');
+    const profileEyebrow = document.getElementById('profile-eyebrow');
+    const profileRole = document.getElementById('profile-role');
+    const profileJoined = document.getElementById('profile-joined');
+    const profileFocusShort = document.getElementById('profile-focus-short');
+    const profileStatus = document.getElementById('profile-status');
+    const profileRoleTag = document.getElementById('profile-role-tag');
+    const profileName = document.getElementById('profile-name');
+    const profileEmail = document.getElementById('profile-email');
+    const profileRoleLabel = document.getElementById('profile-role-label');
+    const profileMemberSince = document.getElementById('profile-member-since');
+    const profileFocusList = document.getElementById('profile-focus-list');
+    const profileQuickLinks = document.getElementById('profile-quick-links');
+    const profilePrimaryAction = document.getElementById('profile-primary-action');
+    const profileSecondaryAction = document.getElementById('profile-secondary-action');
+    const profileFocusHeading = document.getElementById('profile-focus-heading');
+    const profilePhoto = document.getElementById('profile-photo');
+    const profilePhotoFallback = document.getElementById('profile-photo-fallback');
+    const profilePhotoNote = document.getElementById('profile-photo-note');
+    const deleteAccountButton = document.getElementById('delete-account-button');
+    const settingsForm = document.getElementById('profile-settings-form');
+    const settingsFirstName = document.getElementById('settings-first-name');
+    const settingsLastName = document.getElementById('settings-last-name');
+    const settingsEmail = document.getElementById('settings-email');
+    const settingsPhone = document.getElementById('settings-phone');
+    const settingsPhoto = document.getElementById('settings-photo');
+    const settingsBio = document.getElementById('settings-bio');
+    const settingsSkills = document.getElementById('settings-skills');
+    const settingsCurrentPassword = document.getElementById('settings-current-password');
+    const settingsNewPassword = document.getElementById('settings-new-password');
+    const settingsConfirmPassword = document.getElementById('settings-confirm-password');
+    const settingsMessage = document.getElementById('profile-settings-message');
+
+    if (profileHeading || profileSummary || profileEyebrow || profileRole || profileJoined || profileFocusShort || profileStatus || profileRoleTag || profileName || profileEmail || profileRoleLabel || profileMemberSince || profileFocusList || profileQuickLinks || profilePrimaryAction || profileSecondaryAction || profileFocusHeading || profilePhoto || profilePhotoFallback || profilePhotoNote) {
+        if (profileHeading) {
+            profileHeading.textContent = `Welcome back, ${loggedInUser.firstName}`;
+        }
+
+        if (profileSummary) {
+            profileSummary.textContent = profileCopy.summary;
+        }
+
+        if (profileEyebrow) {
+            profileEyebrow.textContent = profileCopy.eyebrow;
+        }
+
+        if (profileRole) {
+            profileRole.textContent = profileCopy.roleLabel;
+        }
+
+        if (profileJoined) {
+            profileJoined.textContent = formatMemberSince(loggedInUser.createdAt);
+        }
+
+        if (profileFocusShort) {
+            profileFocusShort.textContent = profileCopy.focusLabel;
+        }
+
+        if (profileStatus) {
+            profileStatus.textContent = profileCopy.status;
+        }
+
+        if (profileRoleTag) {
+            profileRoleTag.textContent = profileCopy.eyebrow;
+        }
+
+        if (profileName) {
+            profileName.textContent = `${loggedInUser.firstName} ${loggedInUser.lastName}`;
+        }
+
+        if (profileEmail) {
+            profileEmail.textContent = loggedInUser.email;
+        }
+
+        if (profileRoleLabel) {
+            profileRoleLabel.textContent = profileCopy.roleLabel;
+        }
+
+        if (profileMemberSince) {
+            profileMemberSince.textContent = formatMemberSince(loggedInUser.createdAt);
+        }
+
+        if (profileFocusHeading) {
+            profileFocusHeading.textContent = profileCopy.focusLabel;
+        }
+
+        const profileInitials = `${loggedInUser.firstName?.charAt(0) || ''}${loggedInUser.lastName?.charAt(0) || ''}`.trim().toUpperCase() || 'U';
+        const profilePictureUrl = (loggedInUser.profilePicture || '').trim();
+
+        if (profilePhotoFallback) {
+            profilePhotoFallback.textContent = profileInitials;
+        }
+
+        if (profilePhoto) {
+            if (profilePictureUrl) {
+                profilePhoto.src = profilePictureUrl;
+                profilePhoto.hidden = false;
+                profilePhoto.alt = `${loggedInUser.firstName} ${loggedInUser.lastName} profile photo`;
+
+                if (profilePhotoFallback) {
+                    profilePhotoFallback.hidden = true;
+                }
+
+                if (profilePhotoNote) {
+                    profilePhotoNote.textContent = 'Profile photo saved.';
+                }
+            } else {
+                profilePhoto.removeAttribute('src');
+                profilePhoto.hidden = true;
+
+                if (profilePhotoFallback) {
+                    profilePhotoFallback.hidden = false;
+                }
+
+                if (profilePhotoNote) {
+                    profilePhotoNote.textContent = 'Space reserved for a profile picture.';
+                }
+            }
+        }
+
+        if (settingsForm) {
+            if (settingsFirstName) settingsFirstName.value = loggedInUser.firstName || '';
+            if (settingsLastName) settingsLastName.value = loggedInUser.lastName || '';
+            if (settingsEmail) settingsEmail.value = loggedInUser.email || '';
+            if (settingsPhone) settingsPhone.value = loggedInUser.phone || '';
+            if (settingsPhoto) settingsPhoto.value = loggedInUser.profilePicture || '';
+            if (settingsBio) settingsBio.value = loggedInUser.bio || '';
+            if (settingsSkills) settingsSkills.value = Array.isArray(loggedInUser.skills) ? loggedInUser.skills.join(', ') : '';
+        }
+
+        if (profileFocusList) {
+            profileFocusList.innerHTML = profileCopy.focusPoints.map((point) => `
+                <div class="dashboard-task">
+                    <p class="dashboard-card__subtle">${point}</p>
+                </div>
+            `).join('');
+        }
+
+        if (deleteAccountButton) {
+            deleteAccountButton.addEventListener('click', () => {
+                const confirmed = window.confirm('Delete your account from this browser session? This cannot be undone here.');
+
+                if (!confirmed) {
+                    return;
+                }
+
+                localStorage.removeItem('studyhub_user');
+                window.location.href = 'index.html';
+            });
+        }
+
+        if (settingsForm) {
+            settingsForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                if (settingsMessage) {
+                    settingsMessage.textContent = 'Saving settings...';
+                    settingsMessage.style.color = 'var(--primary)';
+                }
+
+                const payload = {
+                    firstName: settingsFirstName ? settingsFirstName.value.trim() : '',
+                    lastName: settingsLastName ? settingsLastName.value.trim() : '',
+                    email: settingsEmail ? settingsEmail.value.trim() : '',
+                    phone: settingsPhone ? settingsPhone.value.trim() : '',
+                    profilePicture: settingsPhoto ? settingsPhoto.value.trim() : '',
+                    bio: settingsBio ? settingsBio.value.trim() : '',
+                    skills: settingsSkills ? settingsSkills.value.trim() : '',
+                    currentPassword: settingsCurrentPassword ? settingsCurrentPassword.value : '',
+                    newPassword: settingsNewPassword ? settingsNewPassword.value : '',
+                    confirmPassword: settingsConfirmPassword ? settingsConfirmPassword.value : ''
+                };
+
+                try {
+                    const endpoint = window.location.protocol === 'file:'
+                        ? `http://localhost:3000/api/users/${loggedInUser.id}/settings`
+                        : `/api/users/${loggedInUser.id}/settings`;
+
+                    const response = await fetch(endpoint, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(result.message || 'Unable to save settings.');
+                    }
+
+                    const updatedUser = result.user || { ...loggedInUser, ...payload };
+                    localStorage.setItem('studyhub_user', JSON.stringify(updatedUser));
+
+                    if (settingsMessage) {
+                        settingsMessage.textContent = 'Settings saved successfully.';
+                        settingsMessage.style.color = '#22c55e';
+                    }
+
+                    window.location.reload();
+                } catch (error) {
+                    if (settingsMessage) {
+                        settingsMessage.textContent = error.message || 'Failed to save settings.';
+                        settingsMessage.style.color = '#ef4444';
+                    }
+                }
+            });
+        }
+
+        if (profileQuickLinks) {
+            profileQuickLinks.innerHTML = profileCopy.quickLinks.map((link) => `
+                <a href="${link.href}">${link.label}</a>
+            `).join('');
+        }
+
+        if (profilePrimaryAction) {
+            profilePrimaryAction.textContent = profileCopy.primaryAction.label;
+            profilePrimaryAction.href = profileCopy.primaryAction.href;
+        }
+
+        if (profileSecondaryAction) {
+            profileSecondaryAction.textContent = profileCopy.secondaryAction.label;
+            profileSecondaryAction.href = profileCopy.secondaryAction.href;
+        }
+
+        document.title = `${profileCopy.roleLabel} Profile | StudyHub`;
     }
 }
 
@@ -516,4 +856,4 @@ if (backToTopButton) {
     backToTopButton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-}
+}

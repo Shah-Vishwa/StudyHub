@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="GitHub course artwork">
+  <rect width="512" height="512" fill="none"/>
+  <circle cx="256" cy="256" r="186" fill="#111111"/>
+  <path d="M180 210c0-38 30-70 76-70s76 32 76 70c0 28-11 52-30 68v34c0 10-8 18-18 18h-56c-10 0-18-8-18-18v-34c-19-16-30-40-30-68z" fill="#ffffff"/>
+  <path d="M176 175c0-20 14-36 34-36 18 0 32 12 38 29" fill="none" stroke="#ffffff" stroke-width="20" stroke-linecap="round"/>
+  <path d="M336 175c0-20-14-36-34-36-18 0-32 12-38 29" fill="none" stroke="#ffffff" stroke-width="20" stroke-linecap="round"/>
+  <path d="M206 340c-15 0-28 12-28 27v46c0 18 13 31 31 31h124c18 0 31-13 31-31v-46c0-15-13-27-28-27H206z" fill="#ffffff"/>
+  <path d="M180 343c-10 4-17 13-17 24 0 20 18 37 40 37" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/>
+</svg>

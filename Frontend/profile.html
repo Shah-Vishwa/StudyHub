@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StudyHub profile page tailored to each signed-in user role.">
+    <title>StudyHub | Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="back-to-top" type="button" aria-label="Back to top"><span aria-hidden="true">↑</span></button>
+
+    <header class="navbar" id="site-navbar">
+        <div class="navbar__inner">
+            <a class="brand" href="index.html" aria-label="StudyHub home">
+                <span class="brand__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path d="M4.6 13.8h10.7a2 2 0 0 1 2 2v1.5H6.6a2 2 0 0 1-2-2z" fill="#d97706" stroke="#8b5a22" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M5.2 10.6h11a2 2 0 0 1 2 2v1.6H7.2a2 2 0 0 1-2-2z" fill="#ef4444" stroke="#8b1e1e" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M5.8 7.4h11.2a2 2 0 0 1 2 2V11H7.8a2 2 0 0 1-2-2z" fill="#22c55e" stroke="#1f6b3b" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M7 6.6h9.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                        <path d="M7 9.1h7.2" fill="none" stroke="#f8fafc" stroke-width="1.1" stroke-linecap="round"></path>
+                        <path d="M14.6 4.7l1.5-1.5 3.2 3.2-1.5 1.5-3.9 1.1z" fill="#f59e0b" stroke="#92400e" stroke-width="0.7" stroke-linejoin="round"></path>
+                        <path d="M13.6 5.7l3.2 3.2" fill="none" stroke="#78350f" stroke-width="1.2" stroke-linecap="round"></path>
+                    </svg>
+                </span>
+                <span class="brand__text"><strong>StudyHub</strong><small>Cloud-ready LMS</small></span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation"><span></span><span></span><span></span></button>
+
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false" title="Toggle color theme">
+                <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
+                <span class="theme-toggle__label">Light</span>
+            </button>
+
+            <nav class="nav" id="primary-navigation" aria-label="Primary navigation">
+                <a href="index.html#home">Home</a>
+                <a href="course.html">Courses</a>
+                <a href="features.html">Features</a>
+                <a href="student-dashboard.html">Dashboard</a>
+                <a href="profile.html">Profile</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a class="nav__link nav__link--ghost" href="login.html">Login</a>
+                <a class="nav__link nav__link--ghost" href="register.html">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="dashboard-page section">
+            <div class="container dashboard-shell">
+                <article class="dashboard-hero reveal">
+                    <div>
+                        <p class="eyebrow" id="profile-eyebrow">Profile</p>
+                        <h1 id="profile-heading">Welcome back</h1>
+                        <p class="hero__description" id="profile-summary">Your profile brings together account details, role-specific actions, and your next steps.</p>
+
+                        <div class="dashboard-hero__actions">
+                            <a class="button button--primary" id="profile-primary-action" href="student-dashboard.html">Open dashboard</a>
+                            <a class="button button--secondary" id="profile-secondary-action" href="course.html">Browse courses</a>
+                        </div>
+                    </div>
+
+                    <div class="profile-summary-panel">
+                        <div class="profile-photo-card">
+                            <div class="profile-photo-frame" aria-label="Profile photo">
+                                <img id="profile-photo" alt="Profile photo" hidden>
+                                <span id="profile-photo-fallback" class="profile-photo-fallback" aria-hidden="true">VS</span>
+                            </div>
+                            <div class="profile-photo-copy">
+                                <strong>Profile photo</strong>
+                                <p id="profile-photo-note">Space reserved for a profile picture.</p>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-hero__stats" aria-label="Profile summary">
+                            <div class="dashboard-metric">
+                                <span>Role</span>
+                                <strong id="profile-role">Student</strong>
+                            </div>
+                            <div class="dashboard-metric">
+                                <span>Member since</span>
+                                <strong id="profile-joined">Recently</strong>
+                            </div>
+                            <div class="dashboard-metric">
+                                <span>Focus area</span>
+                                <strong id="profile-focus-short">Learning</strong>
+                            </div>
+                            <div class="dashboard-metric">
+                                <span>Status</span>
+                                <strong id="profile-status">Active</strong>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="dashboard-grid">
+                    <article class="dashboard-card dashboard-card--wide reveal">
+                        <div class="dashboard-card__header">
+                            <h2>Account Overview</h2>
+                            <span class="dashboard-tag" id="profile-role-tag">Student profile</span>
+                        </div>
+
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <strong>Name</strong>
+                                <p id="profile-name">Loading...</p>
+                            </div>
+                            <div class="resource-item">
+                                <strong>Email</strong>
+                                <p id="profile-email">Loading...</p>
+                            </div>
+                            <div class="resource-item">
+                                <strong>Role</strong>
+                                <p id="profile-role-label">Loading...</p>
+                            </div>
+                            <div class="resource-item">
+                                <strong>Joined</strong>
+                                <p id="profile-member-since">Loading...</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card reveal">
+                        <div class="dashboard-card__header">
+                            <h2 id="profile-focus-heading">Next Steps</h2>
+                            <span class="dashboard-tag">Personalized</span>
+                        </div>
+
+                        <div class="dashboard-task-list" id="profile-focus-list">
+                            <div class="dashboard-task">
+                                <p class="dashboard-card__subtle">Your next steps will appear here after sign in.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card reveal">
+                        <div class="dashboard-card__header">
+                            <h2>Quick Actions</h2>
+                            <span class="dashboard-tag">Fast links</span>
+                        </div>
+
+                        <div class="dashboard-nav-links" id="profile-quick-links">
+                            <a href="student-dashboard.html">Open dashboard</a>
+                            <a href="course.html">Browse courses</a>
+                            <a href="contact.html">Contact support</a>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card dashboard-card--wide reveal">
+                        <div class="dashboard-card__header">
+                            <h2>Security and Settings</h2>
+                            <span class="dashboard-tag">Account safe</span>
+                        </div>
+
+                        <form class="profile-settings-form" id="profile-settings-form">
+                            <div class="profile-settings-grid">
+                                <label>
+                                    <span>First name</span>
+                                    <input type="text" name="firstName" id="settings-first-name" required>
+                                </label>
+                                <label>
+                                    <span>Last name</span>
+                                    <input type="text" name="lastName" id="settings-last-name" required>
+                                </label>
+                                <label>
+                                    <span>Email</span>
+                                    <input type="email" name="email" id="settings-email" required>
+                                </label>
+                                <label>
+                                    <span>Phone</span>
+                                    <input type="tel" name="phone" id="settings-phone" placeholder="+1 555 000 0000">
+                                </label>
+                                <label class="profile-settings-form__wide">
+                                    <span>Profile photo URL</span>
+                                    <input type="url" name="profilePicture" id="settings-photo" placeholder="https://...">
+                                </label>
+                                <label class="profile-settings-form__wide">
+                                    <span>Bio</span>
+                                    <textarea name="bio" id="settings-bio" rows="3" placeholder="Write a short bio..."></textarea>
+                                </label>
+                                <label class="profile-settings-form__wide">
+                                    <span>Skills</span>
+                                    <input type="text" name="skills" id="settings-skills" placeholder="Linux, Git, AWS">
+                                </label>
+                            </div>
+
+                            <div class="profile-settings-passwords">
+                                <label>
+                                    <span>Current password</span>
+                                    <input type="password" name="currentPassword" id="settings-current-password" placeholder="Enter current password">
+                                </label>
+                                <label>
+                                    <span>New password</span>
+                                    <input type="password" name="newPassword" id="settings-new-password" placeholder="Enter new password">
+                                </label>
+                                <label>
+                                    <span>Confirm new password</span>
+                                    <input type="password" name="confirmPassword" id="settings-confirm-password" placeholder="Confirm new password">
+                                </label>
+                            </div>
+
+                            <div class="profile-settings-actions">
+                                <button class="button button--primary profile-section__button" type="submit">Save settings</button>
+                                <p class="profile-settings-message" id="profile-settings-message" aria-live="polite"></p>
+                            </div>
+                        </form>
+                    </article>
+                </div>
+
+                <section class="profile-section reveal" aria-labelledby="my-courses-heading">
+                    <div class="dashboard-card__header profile-section__header">
+                        <h2 id="my-courses-heading">My Courses</h2>
+                        <span class="dashboard-tag">Detailed student view</span>
+                    </div>
+
+                    <div class="profile-section__grid profile-section__grid--detailed">
+                        <article class="profile-section-card profile-section-card--wide">
+                            <div class="profile-section-card__header">
+                                <h3>Course reviews</h3>
+                                <span class="dashboard-tag">All reviews</span>
+                            </div>
+                            <div class="profile-review-list" id="profile-course-reviews">
+                                <article class="profile-review-item">
+                                    <div class="profile-review-item__top">
+                                        <strong>Linux Administration Bootcamp</strong>
+                                        <span>5.0/5</span>
+                                    </div>
+                                    <p>Clear lessons, practical labs, and helpful explanations on permissions and system commands.</p>
+                                </article>
+                                <article class="profile-review-item">
+                                    <div class="profile-review-item__top">
+                                        <strong>Git &amp; GitHub Essentials</strong>
+                                        <span>4.8/5</span>
+                                    </div>
+                                    <p>Branching and pull requests felt easier after the examples and project-based exercises.</p>
+                                </article>
+                                <article class="profile-review-item">
+                                    <div class="profile-review-item__top">
+                                        <strong>AWS Cloud Practitioner</strong>
+                                        <span>4.9/5</span>
+                                    </div>
+                                    <p>The course gave a solid overview of cloud services, pricing, and account security basics.</p>
+                                </article>
+                            </div>
+                        </article>
+
+                        <article class="profile-section-card profile-section-card--wide">
+                            <div class="profile-section-card__header">
+                                <h3>Assignment history</h3>
+                                <span class="dashboard-tag">Submission log</span>
+                            </div>
+                            <div class="profile-history-list" id="profile-assignment-history">
+                                <div class="profile-history-item">
+                                    <strong>Linux Lab 5</strong>
+                                    <span>Submitted on Aug 2, 2026</span>
+                                    <p>Configured file permissions and verified service status.</p>
+                                </div>
+                                <div class="profile-history-item">
+                                    <strong>Git Branching Exercise</strong>
+                                    <span>Completed on Aug 1, 2026</span>
+                                    <p>Created a feature branch, merged safely, and reviewed commit history.</p>
+                                </div>
+                                <div class="profile-history-item">
+                                    <strong>Networking Quiz 2</strong>
+                                    <span>Graded on Jul 31, 2026</span>
+                                    <p>Scored 9/10 with strong performance on subnetting and routing questions.</p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="profile-section-card">
+                            <div class="profile-section-card__header">
+                                <h3>Learning progress</h3>
+                                <span class="dashboard-tag">Overall progress</span>
+                            </div>
+                            <div class="profile-progress profile-progress--stacked">
+                                <div class="profile-progress-block">
+                                    <div class="profile-progress__label-row">
+                                        <strong>Linux</strong>
+                                        <span>78%</span>
+                                    </div>
+                                    <div class="profile-progress__track"><div class="profile-progress__fill" style="width: 78%;"></div></div>
+                                </div>
+                                <div class="profile-progress-block">
+                                    <div class="profile-progress__label-row">
+                                        <strong>Git</strong>
+                                        <span>65%</span>
+                                    </div>
+                                    <div class="profile-progress__track"><div class="profile-progress__fill" style="width: 65%;"></div></div>
+                                </div>
+                                <div class="profile-progress-block">
+                                    <div class="profile-progress__label-row">
+                                        <strong>AWS</strong>
+                                        <span>59%</span>
+                                    </div>
+                                    <div class="profile-progress__track"><div class="profile-progress__fill" style="width: 59%;"></div></div>
+                                </div>
+                                <div class="profile-progress__meta">
+                                    <span>72% overall</span>
+                                    <span>3 active courses</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="profile-section-card">
+                            <div class="profile-section-card__header">
+                                <h3>Recent activity</h3>
+                                <span class="dashboard-tag">Latest actions</span>
+                            </div>
+                            <ul class="profile-section-list profile-section-list--detailed">
+                                <li><strong>Completed Linux Lesson 5</strong><span>2 hours ago</span></li>
+                                <li><strong>Reviewed Git pull requests</strong><span>Yesterday</span></li>
+                                <li><strong>Started AWS billing module</strong><span>2 days ago</span></li>
+                            </ul>
+                        </article>
+
+                        <article class="profile-section-card">
+                            <div class="profile-section-card__header">
+                                <h3>Notifications</h3>
+                                <span class="dashboard-tag">Inbox</span>
+                            </div>
+                            <ul class="profile-section-list profile-section-list--detailed">
+                                <li><strong>Assignment due tomorrow</strong><span>Linux Lab 6 needs submission</span></li>
+                                <li><strong>New course update</strong><span>AWS lesson 4 is now available</span></li>
+                                <li><strong>Certificate review</strong><span>Git certificate pending approval</span></li>
+                            </ul>
+                        </article>
+
+                        <article class="profile-section-card">
+                            <div class="profile-section-card__header">
+                                <h3>Account settings</h3>
+                                <span class="dashboard-tag">Manage</span>
+                            </div>
+                            <ul class="profile-section-list profile-section-list--actions">
+                                <li><a href="#profile-settings-form">Edit profile details</a></li>
+                                <li><a href="#profile-settings-form">Change password</a></li>
+                                <li><a href="#profile-settings-form">Update notification preferences</a></li>
+                            </ul>
+                            <button class="button button--secondary profile-section__button" type="button" onclick="document.getElementById('profile-settings-form').scrollIntoView({ behavior: 'smooth', block: 'start' });">Open settings</button>
+                        </article>
+
+                        <article class="profile-section-card profile-section-card--danger">
+                            <div class="profile-section-card__header">
+                                <h3>Delete account</h3>
+                                <span class="dashboard-tag">Danger zone</span>
+                            </div>
+                            <p>This action removes the current account session from this browser after confirmation.</p>
+                            <button class="button profile-section__danger-button" id="delete-account-button" type="button">Delete account</button>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__bottom">
+            <p>© <span class="year"></span> StudyHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -49,7 +49,7 @@
         <section class="auth-page section">
             <div class="container auth-grid auth-grid--reverse">
                 <div class="auth-panel reveal">
-                    <form class="auth-form" id="signup-form" action="student-dashboard.html" method="get">
+                    <form class="auth-form" id="signup-form" action="profile.html" method="get">
                         <div class="auth-form__header">
                             <h2>Create Account</h2>
                             <p>Join StudyHub and start your learning journey.</p>
@@ -185,7 +185,7 @@
                     }
                     
                     setTimeout(() => {
-                        window.location.href = 'student-dashboard.html';
+                        window.location.href = window.getSignedInLandingPage(result.user);
                     }, 1000);
                 } catch (error) {
                     signupMessage.textContent = error.message || 'Unable to save right now. Please try again.';

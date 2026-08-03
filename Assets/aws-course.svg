@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="AWS course artwork">
+  <rect width="512" height="512" fill="none"/>
+  <rect x="86" y="96" width="340" height="320" rx="42" fill="#ffffff"/>
+  <text x="256" y="250" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="128" font-weight="700" fill="#2b3648">aws</text>
+  <path d="M112 336c70 54 218 54 288 0" fill="none" stroke="#ff9900" stroke-width="18" stroke-linecap="round"/>
+  <path d="M377 314c27 0 46 4 55 16" fill="none" stroke="#ff9900" stroke-width="18" stroke-linecap="round"/>
+  <path d="M392 306l45 9-27 33" fill="none" stroke="#ff9900" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

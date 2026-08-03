@@ -120,6 +120,10 @@ Fields
 | password | VARCHAR | Hashed password |
 | role | VARCHAR | Student, Teacher, Admin |
 | created_at | TIMESTAMP | Account creation |
+| profile_picture | VARCHAR | Profile image URL or path |
+| bio | TEXT | Short user biography |
+| phone | VARCHAR | Contact phone number |
+| skills | JSONB | List of user skills |
 
 ---
 
