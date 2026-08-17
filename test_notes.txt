@@ -1,0 +1,12 @@
+Linux Service Management and Journalctl Notes
+
+1. systemctl start <service_name>
+   Starts a system service.
+2. systemctl stop <service_name>
+   Stops a system service.
+3. systemctl restart <service_name>
+   Restarts a system service.
+4. systemctl status <service_name>
+   Displays the current status of the service, including recent logs.
+5. journalctl -u <service_name>
+   Inspects detailed logs for the specified service unit.

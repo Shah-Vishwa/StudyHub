@@ -7,10 +7,13 @@
     const isDashboardPage = path.includes('student-dashboard.html') || path.includes('/dashboard.html');
     const isProfilePage = path.includes('profile.html');
     const isSettingsPage = path.includes('settings.html');
+    const isUploadPage = path.includes('upload.html');
     const isAuthPage = path.includes('login.html') || path.includes('register.html');
 
-    if ((isDashboardPage || isProfilePage || isSettingsPage) && !user) {
+    if ((isDashboardPage || isProfilePage || isSettingsPage || isUploadPage) && !user) {
         window.location.href = 'login.html';
+    } else if (isUploadPage && user && user.role.toLowerCase() === 'student') {
+        window.location.href = 'student-dashboard.html';
     } else if (isAuthPage && user) {
         window.location.href = getSignedInLandingPage(user);
     }
@@ -421,6 +424,14 @@ function updateDynamicUI() {
         profileLink.href = 'profile.html';
         profileLink.textContent = 'Profile';
 
+        let uploadLink = null;
+        if (loggedInUser.role && (loggedInUser.role.toLowerCase() === 'teacher' || loggedInUser.role.toLowerCase() === 'administrator')) {
+            uploadLink = document.createElement('a');
+            uploadLink.className = 'nav__link nav__link--ghost';
+            uploadLink.href = 'upload.html';
+            uploadLink.textContent = 'Upload Center';
+        }
+
         const logoutBtn = document.createElement('a');
         logoutBtn.className = 'nav__link nav__link--ghost';
         logoutBtn.id = 'logout-btn';
@@ -434,6 +445,9 @@ function updateDynamicUI() {
 
         nav.appendChild(greeting);
         nav.appendChild(profileLink);
+        if (uploadLink) {
+            nav.appendChild(uploadLink);
+        }
         nav.appendChild(logoutBtn);
     }
 

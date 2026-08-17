@@ -2,12 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 const frontendDir = path.join(__dirname, '..', 'Frontend');
 const databaseFile = path.join(__dirname, '..', 'Database', 'users.json');
+const materialsFile = path.join(__dirname, '..', 'Database', 'materials.json');
+const uploadsDir = path.join(__dirname, '..', 'Database', 'uploads');
 
 // Ensure Database directory exists
 const dbDir = path.dirname(databaseFile);
@@ -20,14 +23,37 @@ if (!fs.existsSync(databaseFile)) {
     fs.writeFileSync(databaseFile, JSON.stringify([], null, 2));
 }
 
+// Ensure uploads directory exists
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Ensure materials.json exists
+if (!fs.existsSync(materialsFile)) {
+    fs.writeFileSync(materialsFile, JSON.stringify([], null, 2));
+}
+
+// Multer storage configuration
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadsDir);
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage: storage });
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static frontend files
+// Serve static frontend files and uploads
 app.use(express.static(frontendDir));
 app.use('/assets', express.static(path.join(__dirname, '..', 'Assets')));
+app.use('/uploads', express.static(uploadsDir));
 
 const dashboardData = {
     student: 'Vishwa Shah',
@@ -236,6 +262,112 @@ app.get('/api/users', (req, res) => {
         return buildSafeUser(safeUser);
     });
     res.json({ users });
+});
+
+// Helpers for materials database
+function loadMaterials() {
+    try {
+        const raw = fs.readFileSync(materialsFile, 'utf8');
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function saveMaterials(materials) {
+    fs.writeFileSync(materialsFile, JSON.stringify(materials, null, 2));
+}
+
+// GET /api/materials
+app.get('/api/materials', (req, res) => {
+    try {
+        const { subject, category, uploadedById } = req.query;
+        let materials = loadMaterials();
+
+        if (subject) {
+            materials = materials.filter(m => m.subject.toLowerCase() === subject.toLowerCase());
+        }
+        if (category) {
+            materials = materials.filter(m => m.category.toLowerCase() === category.toLowerCase());
+        }
+        if (uploadedById) {
+            materials = materials.filter(m => m.uploadedById === uploadedById);
+        }
+
+        res.json({ materials });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
+// POST /api/materials
+app.post('/api/materials', upload.single('file'), (req, res) => {
+    try {
+        const { subject, category, title, description, uploadedBy, uploadedById } = req.body;
+        const file = req.file;
+
+        if (!subject || !category || !title || !file) {
+            if (file) {
+                fs.unlinkSync(file.path);
+            }
+            return res.status(400).json({ message: 'Please complete all required fields and upload a file.' });
+        }
+
+        const materials = loadMaterials();
+        const newMaterial = {
+            id: Date.now().toString(36),
+            subject,
+            category,
+            title: title.trim(),
+            description: (description || '').trim(),
+            originalName: file.originalname,
+            fileName: file.filename,
+            fileSize: file.size,
+            uploadedBy: (uploadedBy || 'Instructor').trim(),
+            uploadedById: uploadedById || '',
+            uploadedAt: new Date().toISOString()
+        };
+
+        materials.push(newMaterial);
+        saveMaterials(materials);
+
+        res.status(201).json({ message: 'Material uploaded successfully.', material: newMaterial });
+    } catch (error) {
+        if (req.file && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
+        res.status(500).json({ message: 'Failed to upload material.' });
+    }
+});
+
+// DELETE /api/materials/:id
+app.delete('/api/materials/:id', (req, res) => {
+    try {
+        const { id } = req.params;
+        const materials = loadMaterials();
+        const index = materials.findIndex(m => m.id === id);
+
+        if (index === -1) {
+            return res.status(404).json({ message: 'Material not found.' });
+        }
+
+        const material = materials[index];
+        const filePath = path.join(uploadsDir, material.fileName);
+
+        // Delete physical file
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
+        // Delete metadata
+        materials.splice(index, 1);
+        saveMaterials(materials);
+
+        res.json({ message: 'Material deleted successfully.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete material.' });
+    }
 });
 
 // Fallback route for static 404

@@ -78,5 +78,31 @@
     "skills": [
       "Linux"
     ]
+  },
+  {
+    "id": "msx6h18w",
+    "firstName": "Alex",
+    "lastName": "Teacher",
+    "email": "alex.teacher@example.com",
+    "password": "password123",
+    "role": "Teacher",
+    "createdAt": "2026-08-17T11:56:10.978Z",
+    "profilePicture": "",
+    "bio": "",
+    "phone": "",
+    "skills": []
+  },
+  {
+    "id": "msx6qkof",
+    "firstName": "Sumita",
+    "lastName": "Teacher",
+    "email": "Sumita@123gmail.com",
+    "password": "Sumita@123",
+    "role": "Teacher",
+    "createdAt": "2026-08-17T12:03:36.874Z",
+    "profilePicture": "",
+    "bio": "",
+    "phone": "",
+    "skills": []
   }
 ]

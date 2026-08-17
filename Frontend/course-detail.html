@@ -112,6 +112,23 @@
                         <div id="course-instructor" class="detail-card__text"></div>
                     </article>
 
+                    <article class="detail-card reveal" id="class-resources-card">
+                        <h2>Class Materials &amp; Assignments</h2>
+                        <p class="detail-card__text">Study resources, quizzes, assignments, and question papers uploaded by instructors.</p>
+                        
+                        <div class="materials-filter" id="class-materials-filter">
+                            <button class="filter-btn active" data-category="all">All</button>
+                            <button class="filter-btn" data-category="notes">Notes</button>
+                            <button class="filter-btn" data-category="quiz">Quizzes</button>
+                            <button class="filter-btn" data-category="assignment">Assignments</button>
+                            <button class="filter-btn" data-category="question-paper">Question Papers</button>
+                        </div>
+                        
+                        <div class="dynamic-materials-list" id="class-materials-list">
+                            <p class="loading-text">Loading class materials...</p>
+                        </div>
+                    </article>
+
                     <article class="detail-card reveal">
                         <h2>Reviews</h2>
                         <div id="course-reviews" class="notes-stack"></div>
@@ -260,56 +277,157 @@
             }
 
             const objectiveList = document.getElementById('course-objectives');
-            objectiveList.innerHTML = course.objectives.map((item) => `<li>${item}</li>`).join('');
+            if (objectiveList && course.objectives) {
+                objectiveList.innerHTML = course.objectives.map((item) => `<li>${item}</li>`).join('');
+            }
 
             const notesContainer = document.getElementById('course-notes');
-            notesContainer.innerHTML = course.notes.map((note) => `
-                <div class="notes-card">
-                    <h3>${note.heading}</h3>
-                    <p>${note.body}</p>
-                </div>
-            `).join('');
+            if (notesContainer && course.notes) {
+                notesContainer.innerHTML = course.notes.map((note) => `
+                    <div class="notes-card">
+                        <h3>${note.heading}</h3>
+                        <p>${note.body}</p>
+                    </div>
+                `).join('');
+            }
 
             const commandsContainer = document.getElementById('course-commands');
-            commandsContainer.innerHTML = course.commands.map((command) => `
-                <div class="notes-card">
-                    <h3>${command.label}</h3>
-                    <code>${command.code}</code>
-                </div>
-            `).join('');
+            if (commandsContainer && course.commands) {
+                commandsContainer.innerHTML = course.commands.map((command) => `
+                    <div class="notes-card">
+                        <h3>${command.label}</h3>
+                        <code>${command.code}</code>
+                    </div>
+                `).join('');
+            }
 
             const practiceContainer = document.getElementById('course-practice');
-            practiceContainer.innerHTML = course.practice.map((item) => `<li>${item}</li>`).join('');
+            if (practiceContainer && course.practice) {
+                practiceContainer.innerHTML = course.practice.map((item) => `<li>${item}</li>`).join('');
+            }
 
             const downloadsContainer = document.getElementById('course-downloads');
-            downloadsContainer.innerHTML = course.downloads.map((download) => `
-                <div class="notes-card">
-                    <h3>${download.title}</h3>
-                    <a class="resource-link" href="${download.link}" target="_blank" rel="noreferrer noopener">Open resource</a>
-                </div>
-            `).join('');
+            if (downloadsContainer && course.downloads) {
+                downloadsContainer.innerHTML = course.downloads.map((download) => `
+                    <div class="notes-card">
+                        <h3>${download.title}</h3>
+                        <a class="resource-link" href="${download.link}" target="_blank" rel="noreferrer noopener">Open resource</a>
+                    </div>
+                `).join('');
+            }
 
             const videosContainer = document.getElementById('course-videos');
-            videosContainer.innerHTML = course.videos.map((video) => `
-                <div class="notes-card">
-                    <h3>${video.title}</h3>
-                    <iframe src="${video.url}" title="${video.title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            `).join('');
+            if (videosContainer && course.videos) {
+                videosContainer.innerHTML = course.videos.map((video) => `
+                    <div class="notes-card">
+                        <h3>${video.title}</h3>
+                        <iframe src="${video.url}" title="${video.title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                `).join('');
+            }
 
             const quizContainer = document.getElementById('course-quiz');
-            quizContainer.innerHTML = course.quiz.map((item) => `
-                <div class="notes-card quiz-card">
-                    <h3>${item.question}</h3>
-                    <ul class="quiz-options">
-                        ${item.options.map((option) => `<li>${option}</li>`).join('')}
-                    </ul>
-                    <p class="quiz-answer">Answer: ${item.answer}</p>
-                </div>
-            `).join('');
+            if (quizContainer && course.quiz) {
+                quizContainer.innerHTML = course.quiz.map((item) => `
+                    <div class="notes-card quiz-card">
+                        <h3>${item.question}</h3>
+                        <ul class="quiz-options">
+                            ${item.options.map((option) => `<li>${option}</li>`).join('')}
+                        </ul>
+                        <p class="quiz-answer">Answer: ${item.answer}</p>
+                    </div>
+                `).join('');
+            }
 
             const roadmapContainer = document.getElementById('course-roadmap');
-            roadmapContainer.innerHTML = course.roadmap.map((item) => `<li>${item}</li>`).join('');
+            if (roadmapContainer && course.roadmap) {
+                roadmapContainer.innerHTML = course.roadmap.map((item) => `<li>${item}</li>`).join('');
+            }
+
+            // --- Dynamic materials fetch and render ---
+            const materialsList = document.getElementById('class-materials-list');
+            const filterContainer = document.getElementById('class-materials-filter');
+            const isLocal = window.location.protocol === 'file:';
+            const apiBase = isLocal ? 'http://localhost:3000' : '';
+            let allMaterials = [];
+
+            async function fetchClassMaterials() {
+                if (!materialsList) return;
+                try {
+                    const response = await fetch(`${apiBase}/api/materials?subject=${slug}`);
+                    if (!response.ok) throw new Error('Failed to load.');
+                    const data = await response.json();
+                    allMaterials = data.materials || [];
+                    renderMaterials('all');
+                } catch (error) {
+                    materialsList.innerHTML = `<p class="error-text">Unable to load class materials.</p>`;
+                }
+            }
+
+            function renderMaterials(categoryFilter) {
+                let filtered = allMaterials;
+                if (categoryFilter !== 'all') {
+                    filtered = allMaterials.filter(m => m.category === categoryFilter);
+                }
+
+                if (filtered.length === 0) {
+                    materialsList.innerHTML = `
+                        <div class="empty-materials-state">
+                            <p>No class materials uploaded for this category yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                materialsList.innerHTML = filtered.map(m => {
+                    const dateStr = new Date(m.uploadedAt).toLocaleDateString('en-US', {
+                        month: 'short', day: 'numeric', year: 'numeric'
+                    });
+                    const sizeMB = (m.fileSize / (1024 * 1024)).toFixed(2);
+                    const sizeStr = sizeMB > 0.1 ? `${sizeMB} MB` : `${(m.fileSize / 1024).toFixed(1)} KB`;
+
+                    return `
+                        <div class="material-card-row">
+                            <div class="material-card-row__info">
+                                <div class="material-card-row__header">
+                                    <span class="material-badge badge--${m.category}">${m.category.replace('-', ' ').toUpperCase()}</span>
+                                    <span class="material-date">Shared on ${dateStr}</span>
+                                </div>
+                                <h3>${escapeHTML(m.title)}</h3>
+                                ${m.description ? `<p class="material-desc">${escapeHTML(m.description)}</p>` : ''}
+                                <span class="material-uploader">Uploaded by <strong>${escapeHTML(m.uploadedBy)}</strong></span>
+                            </div>
+                            <div class="material-card-row__action">
+                                <a href="${apiBase}/uploads/${m.fileName}" download="${m.originalName}" target="_blank" class="button button--secondary button--sm">
+                                    Download (${sizeStr})
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            function escapeHTML(str) {
+                return str
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
+
+            if (filterContainer) {
+                filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        const cat = e.target.getAttribute('data-category');
+                        renderMaterials(cat);
+                    });
+                });
+            }
+
+            fetchClassMaterials();
         });
     </script>
 </body>
